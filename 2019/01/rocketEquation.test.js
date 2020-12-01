@@ -12,5 +12,5 @@ ${100756} | ${33583}
 
 test('Given the input list when calling sumFuel then the expected fuel sum should be returned', async () => {
     const sum = await sumFuel();
-    expect(sum).toBe(0);
+    expect(sum).toBe(3270717);
 });

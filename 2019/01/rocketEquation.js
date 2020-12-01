@@ -1,4 +1,4 @@
-import {getCurrentDirname, getFileLines} from "./fileReader";
+import {getCurrentDirname, getFileLines} from "../../fileReader";
 import path from 'path';
 
 export async function sumFuel() {
@@ -7,7 +7,6 @@ export async function sumFuel() {
 
 export async function listRocketFuel() {
     const fuelList = await getFileLines(path.resolve(path.join(getCurrentDirname(import.meta.url), 'input.txt')));
-    console.log(fuelList.filter(fuel => fuel.length).map(rocketEquation));
     return fuelList.filter(fuel => fuel.length).map(fuel => rocketEquation(parseInt(fuel))); 
 }
 
