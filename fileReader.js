@@ -1,6 +1,6 @@
 import { promises as fsPromises } from 'fs';
 import { EOL } from 'os';
-import { dirname } from 'path';
+import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 export async function getFileContent(filePath) {
@@ -9,7 +9,11 @@ export async function getFileContent(filePath) {
 
 export async function getFileLines(filePath) {
     const fileContent = await getFileContent(filePath);
-    return fileContent.split(EOL);
+    return fileContent.split(EOL).filter(line => line.length);
+}
+
+export function getFilePath(importMetaUrl, relativeFilePath) {
+    return resolve(join(getCurrentDirname(importMetaUrl), relativeFilePath));
 }
 
 export function getCurrentDirname(importMetaUrl) {

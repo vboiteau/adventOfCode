@@ -1,35 +1,16 @@
-import {getCurrentDirname, getFileLines} from "../../fileReader";
-import path from 'path';
-import {countValidPasswords, countValidPasswordsWithLimit} from "./solution";
+import {getFilePath, getFileLines} from "../../fileReader";
+import {countValidPasswords, validateLetterCount, validateLetterXOR} from "./solution";
 
-test(
-  'Given the test input when calling getCountOfValidInput then 2 should be returned.',
-  async () => {
-    const filePath = path.resolve(path.join(getCurrentDirname(import.meta.url), 'test.txt'));
-      expect(countValidPasswords((await getFileLines(filePath)).filter(line => line.length))).toBe(2);
-  }
-);
-
-test(
-  'Given the test input when calling getCountOfValidInput then 2 should be returned.',
-  async () => {
-    const filePath = path.resolve(path.join(getCurrentDirname(import.meta.url), 'input.txt'));
-      expect(countValidPasswords((await getFileLines(filePath)).filter(line => line.length))).toBe(622);
-  }
-);
-
-test(
-  'Given the test input when calling getCountOfValidInput then 2 should be returned.',
-  async () => {
-    const filePath = path.resolve(path.join(getCurrentDirname(import.meta.url), 'test.txt'));
-      expect(countValidPasswordsWithLimit((await getFileLines(filePath)).filter(line => line.length))).toBe(1);
-  }
-);
-
-test(
-  'Given the test input when calling getCountOfValidInput then 2 should be returned.',
-  async () => {
-    const filePath = path.resolve(path.join(getCurrentDirname(import.meta.url), 'input.txt'));
-      expect(countValidPasswordsWithLimit((await getFileLines(filePath)).filter(line => line.length))).toBe(263);
+test.each`
+file | validator | expected
+${'test.txt'} | ${validateLetterCount} | ${2}
+${'input.txt'} | ${validateLetterCount} | ${622}
+${'test.txt'} | ${validateLetterXOR} | ${1}
+${'input.txt'} | ${validateLetterXOR} | ${263}
+`(
+  'Given the file $file when calling countValidPassword with validator $validator then $expected should be returned.',
+  async ({ file, validator, expected }) => {
+      const filePath = getFilePath(import.meta.url, file);
+      expect(countValidPasswords(await getFileLines(filePath), validator)).toBe(expected);
   }
 );
