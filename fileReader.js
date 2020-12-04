@@ -7,9 +7,9 @@ export async function getFileContent(filePath) {
     return await fsPromises.readFile(filePath, { encoding: 'utf8'});
 }
 
-export async function getFileLines(filePath) {
+export async function getFileLines(filePath, filterEmpty = true) {
     const fileContent = await getFileContent(filePath);
-    return fileContent.split(EOL).filter(line => line.length);
+    return fileContent.split(EOL).filter(line => filterEmpty ? line.length : true);
 }
 
 export function getFilePath(importMetaUrl, relativeFilePath) {
