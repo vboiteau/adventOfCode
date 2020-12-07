@@ -5,11 +5,10 @@ export function getSeatId(seatIndication) {
 }
 
 export function getHighestSeatId(seatIndications) {
-    return seatIndications.reduce((max, seatIndication) => Math.max(max, getSeatId(seatIndication)), 0)
+    return seatIndications.reduce((max, seatIndication) => Math.max(max, getSeatId(seatIndication)), 0);
 }
 
 export function findMissingSeat(seatIndications) {
-    const seats = seatIndications.map(seatIndication => getSeatId(seatIndication))
-        .sort((a, b) => a - b)
+    const seats = seatIndications.map((seatIndication) => getSeatId(seatIndication)).sort((a, b) => a - b);
     return seats.find((current) => !seats.includes(current + 1)) + 1;
 }

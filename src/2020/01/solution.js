@@ -1,6 +1,6 @@
 export function multiplyTwoNumberSummingToTarget(target, list) {
     const first = list.find((number) => list.includes(target - number));
-    return first && (first * (target - first));
+    return first && first * (target - first);
 }
 
 export function multiplyThreeNumberSummingToTarget(target, list) {

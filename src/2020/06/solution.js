@@ -4,17 +4,17 @@ function getGroupBlock(fileContent) {
 
 export function getSumAnsweredAnyone(fileContent) {
     return getGroupBlock(fileContent)
-        .map(group => new Set(group.replaceAll('\n', '').split('')))
+        .map((group) => new Set(group.replace(/\n/g, '').split('')))
         .reduce((sum, set) => sum + set.size, 0);
 }
 
 export function getSumAnsweredEveryone(fileContent) {
     return getGroupBlock(fileContent)
-        .filter(groupContent => groupContent.length)
-        .map(group => {
+        .filter((groupContent) => groupContent.length)
+        .map((group) => {
             const expectedCount = (group.match(/\n\w/g) || []).length + 1;
             const letters = group.split('\n')[0].split('');
-            return letters.filter(letter => group.match(new RegExp(letter, 'g')).length === expectedCount).length;
+            return letters.filter((letter) => group.match(new RegExp(letter, 'g')).length === expectedCount).length;
         })
         .reduce((sum, answerCount) => sum + answerCount, 0);
 }
