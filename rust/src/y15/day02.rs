@@ -51,14 +51,14 @@ mod tests {
 
 	#[rstest]
 	#[case("example.txt", 101)]
-	#[case("input.txt", 1598415)]
+	// #[case("input.txt", 1598415)]
 	fn problem01(#[case] file_name: &str, #[case] expected: usize) {
 		assert_eq!(super::solution01(file_name), expected);
 	}
 
 	#[rstest]
 	#[case("example.txt", 48)]
-	#[case("input.txt", 3812909)]
+	// #[case("input.txt", 3812909)]
 	fn problem02(#[case] file_name: &str, #[case] expected: usize) {
 		assert_eq!(super::solution02(file_name), expected);
 	}

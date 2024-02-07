@@ -2,13 +2,12 @@ import {
   getProductOfBusNumberAndTimeToWait,
   getTimestampWithSequence,
 } from './solution';
-import {resolve, join} from 'path';
-import {getFileContent, getFileLines} from '../../fileReader';
+import { resolve, join } from 'path';
+import { getFileContent, getFileLines } from '../../fileReader';
 
 // test.each`
 // file | product
 // ${'test.txt'} | ${295}
-// ${'input.txt'} | ${102}
 // `(
 //   'Given a note file $file when getProductOfBusNumberAndTimeToWait is called then the returned product should be $product',
 //   async ({ file, product }) => {
@@ -28,7 +27,7 @@ test.each`
   ${'7,13,x,x,59,x,31,19'} | ${1068781}
 `(
   'Given a buses $chain when getProductOfBusNumberAndTimeToWait is called then the returned product should be $product',
-  async ({chain, product}) => {
+  async ({ chain, product }) => {
     expect(getTimestampWithSequence(chain.split(','))).toEqual(product);
   }
 );

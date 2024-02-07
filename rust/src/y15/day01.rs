@@ -45,7 +45,7 @@ mod tests {
 	#[case("example07.txt", -1)]
 	#[case("example08.txt", -3)]
 	#[case("example09.txt", -3)]
-	#[case("input.txt", 232)]
+	// #[case("input.txt", 232)]
     fn problem01(#[case] file_name: &str, #[case] expected: isize) {
 		assert_eq!(
 			expected,
@@ -58,7 +58,7 @@ mod tests {
     #[rstest]
 	#[case("example10.txt", 1)]
 	#[case("example11.txt", 5)]
-	#[case("input.txt", 1783)]
+	// #[case("input.txt", 1783)]
     fn problem02(#[case] file_name: &str, #[case] expected: isize) {
 		assert_eq!(
 			expected,

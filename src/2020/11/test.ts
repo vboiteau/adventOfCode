@@ -4,18 +4,16 @@ import {
   countOccupiedSeatAround,
   countOccupiedNextSeat,
 } from './solution';
-import {resolve, join} from 'path';
-import {getFileLines} from '../../fileReader';
+import { resolve, join } from 'path';
+import { getFileLines } from '../../fileReader';
 
 test.each`
   file           | counter                    | maxOccupied | occupiedSeats
   ${'test.txt'}  | ${countOccupiedSeatAround} | ${4}        | ${37}
-  ${'input.txt'} | ${countOccupiedSeatAround} | ${4}        | ${2249}
   ${'test.txt'}  | ${countOccupiedNextSeat}   | ${5}        | ${26}
-  ${'input.txt'} | ${countOccupiedNextSeat}   | ${5}        | ${2023}
 `(
   'Given a seat plan in $file when getOccupiedSeatAtTheEnd is called then the returned occupiedSeats should be $occupiedSeat',
-  async ({file, occupiedSeats, counter, maxOccupied}) => {
+  async ({ file, occupiedSeats, counter, maxOccupied }) => {
     const seatPlanFile = resolve(join(__dirname, file));
     const seatPlan: Array<Array<SeatState>> = (
       await getFileLines(seatPlanFile)

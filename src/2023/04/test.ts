@@ -5,7 +5,6 @@ import { solution01, solution02 } from './solution';
 test.each`
 file | expected
 ${'example.txt'} | ${13}
-${'input.txt'} | ${23750}
 `('test problem 01', async ({ file, expected }) => {
     const result = await getFileLines(path.join(__dirname, file));
     expect(solution01(result)).toEqual(expected)

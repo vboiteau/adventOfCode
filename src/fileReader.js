@@ -14,6 +14,19 @@ export async function getFileLines(filePath, filterEmpty = true) {
     .filter(line => (filterEmpty ? line.length : true));
 }
 
+export async function getFileLinesByBlock(filePath) {
+  const fileContent = await getFileLines(filePath, false);
+  return fileContent.reduce((blocks, line) => {
+    if (line.trim() === '') {
+      return [...blocks, []];
+    }
+    return [
+      ...blocks.slice(0, -1),
+      [...blocks[blocks.length - 1], line]
+    ]
+  }, [[]]).filter(block => block.length);
+}
+
 export function getFilePath(importMetaUrl, relativeFilePath) {
   return resolve(join(getCurrentDirname(importMetaUrl), relativeFilePath));
 }
