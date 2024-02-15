@@ -85,8 +85,6 @@ export const getLoadAfterCycles = (panel: Array<string>, cycles: number): number
             if (foundInCache && foundInCache.rotationIndex === 0) {
                 const willHitAtMaxCycle = (cycles - currentCycle) / (currentCycle - foundInCache.cycleIndex);
                 if (Number.isInteger(willHitAtMaxCycle)) {
-                    console.log({ currentCycle, rotationInCycle }, foundInCache);
-                    console.log(currentPanel);
                     return getPanelLoad(rotateClockWise(rotatedPanel));
                 }
             }
