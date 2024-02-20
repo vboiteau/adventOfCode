@@ -1,4 +1,3 @@
-import { EOL } from 'os';
 type Direction = 'up' | 'down' | 'left' | 'right';
 
 interface VisitedState {
@@ -11,17 +10,12 @@ interface VisitedState {
     forwardCount?: number;
 }
 
-interface Boundary {
-    height: number;
-    width: number;
-}
-
 export const getNextNodeToVisit = (visitedStates: Array<VisitedState>): VisitedState | undefined => {
     return visitedStates.filter((state) => !state.visited && state.lavaLostSinceStart !== Infinity)
         .sort((a, b) => a.lavaLostSinceStart - b.lavaLostSinceStart)[0];
 }
 
-const getUnvisitedNeighbours = (current: VisitedState, visitedStates: Array<VisitedState>, boundaries: Boundary): Array<VisitedState> => {
+const getUnvisitedNeighbours = (current: VisitedState, visitedStates: Array<VisitedState>): Array<VisitedState> => {
     const neighbours: Record<Direction, VisitedState | undefined> = {
         'up': {...visitedStates.find((state) => state.x === current.x && state.y === current.y - 1)},
         'down': {...visitedStates.find((state) => state.x === current.x && state.y === current.y + 1)},
@@ -41,10 +35,6 @@ const getUnvisitedNeighbours = (current: VisitedState, visitedStates: Array<Visi
 }
 
 export const getCityLeastLavalLost = (cityMap: Array<string>): number => {
-    const boundaries: Boundary = {
-        height: cityMap.length,
-        width: cityMap[0].length,
-    };
     const visitedStates: Array<VisitedState> = cityMap.flatMap((row, y) => row.split('').map((cell, x) => ({
         x,
         y,
@@ -61,12 +51,11 @@ export const getCityLeastLavalLost = (cityMap: Array<string>): number => {
             console.log('25', nextNodeToVisit, visitedStates.filter(({ visited, lavaLostSinceStart }) => !visited && lavaLostSinceStart !== Infinity));
         }
         nextNodeToVisit.visited = true;
-        const unvisitedNeighbours = getUnvisitedNeighbours(nextNodeToVisit, visitedStates, boundaries);
+        const unvisitedNeighbours = getUnvisitedNeighbours(nextNodeToVisit, visitedStates);
         unvisitedNeighbours.forEach((neighbour) => {
             const index = visitedStates.findIndex((state) => state.x === neighbour.x && state.y === neighbour.y);
             visitedStates[index] = neighbour;
         });
     }
-    console.log(visitedStates.find((state) => state.x === boundaries.width - 1 && state.y === boundaries.height - 1));
-    return 0;
+    return visitedStates.find((state) => state.x === cityMap[0].length - 1 && state.y === cityMap.length - 1).lavaLostSinceStart;
 };
