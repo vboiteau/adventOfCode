@@ -23,7 +23,7 @@ export function ccw(v: Vector): Vector {
 }
 
 export function step(v: Vector): Vector {
-    return { point: PointUtils.getAdjacent(v.point, v.direction), direction: v.direction };
+    return { point: PointUtils.jump(v.point, v.direction), direction: v.direction };
 }
 
 export default Vector;

@@ -22,5 +22,13 @@ export const getBottomRight = <T>(grid: Grid<T>): Point => ({ x: grid[0].length 
 
 export const pointInGrid = <T>(grid: Grid<T>, point: Point): boolean => point.x > -1 && point.x < getWidth(grid) && point.y > -1 && point.y < getHeight(grid);
 
+export const setPointValue = <T>(grid: Grid<T>, point: Point, value: T): void => {
+    grid[point.y][point.x] = value;
+}
+
+export const copy = <T>(grid: Grid<T>): Grid<T> => {
+    return grid.map(line => line.slice());
+}
+
 
 export default Grid;

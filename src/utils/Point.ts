@@ -13,18 +13,26 @@ export function copy(p: Point): Point {
     return { ...p };
 }
 
-export function getAdjacent(point: Point, direction: Direction) {
+export function jump(point: Point, direction: Direction, jumpSize: number = 1) {
     switch (direction) {
         case Direction.NORTH:
-            return { x: point.x, y: point.y - 1 };
+            return { x: point.x, y: point.y - jumpSize };
         case Direction.EAST:
-            return { x: point.x + 1, y: point.y };
+            return { x: point.x + jumpSize, y: point.y };
         case Direction.SOUTH:
-            return { x: point.x, y: point.y + 1 };
+            return { x: point.x, y: point.y + jumpSize };
         default:
         case Direction.WEST:
-            return { x: point.x - 1, y: point.y };
+            return { x: point.x - jumpSize, y: point.y };
     }
 }
 
- export default Point;
+export function add(p1: Point, p2: Point): Point {
+    return { x: p1.x + p2.x, y: p1.y + p2.y };
+}
+
+export function distance(p1: Point, p2: Point): number {
+    return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
+}
+
+export default Point;
