@@ -21,4 +21,8 @@ Cargo.lock
 node_modules
 **/input.txt
 
+coverage
+.scannerwork
+sonar-project.properties
+
 # End of https://www.toptal.com/developers/gitignore/api/rust

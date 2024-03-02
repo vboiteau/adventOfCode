@@ -1,12 +1,12 @@
 import Direction from "../../utils/Direction";
 import { add, copy, equals, jump } from "../../utils/Point";
 
-test.each`
-p1 | p2 | expected
-${{ x: 1, y: 2 }} | ${{ x: 1, y: 2 }} | ${true}
-${{ x: 1, y: 2 }} | ${{ x: 2, y: 2 }} | ${false}
-`('equals($p1, $p2) === $expected', ({ p1, p2, expected }) => {
-    expect(equals(p1, p2)).toBe(expected);
+test('equals', () => {
+    expect(equals({ x: 1, y: 2 }, { x: 1, y: 2 })).toBe(true);
+});
+
+test('not equals', () => {
+    expect(equals({ x: 2, y: 2 }, { x: 1, y: 2 })).toBe(false);
 });
 
 test.each`

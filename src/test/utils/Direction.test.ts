@@ -1,5 +1,9 @@
 import Direction, { ccw, cw } from "../../utils/Direction";
 
+test('equals', () => {
+    expect(Direction.NORTH).toBe(Direction.NORTH);
+});
+
 test.each`
 direction | expected
 ${Direction.NORTH} | ${Direction.EAST}

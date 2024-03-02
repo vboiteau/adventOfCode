@@ -11,13 +11,11 @@ ${{point: {x: 1, y: 2}, direction: Direction.NORTH}} | ${{point: {x: 1, y: 2}, d
 
 });
 
-test.each`
-vector | expected
-${{point: {x: 1, y: 2}, direction: Direction.NORTH}} | ${{point: {x: 1, y: 2}, direction: Direction.NORTH}}
-`('copy($vector) === $expected', ({vector, expected}) => {
+test('copy(vector) === vector', () => {
+    const vector = { point: {x: 1, y: 2}, direction: Direction.NORTH };
     const copied = copy(vector);
     vector.direction = Direction.SOUTH;
-    expect(copied).toEqual(expected);
+    expect(copied).toEqual({ point: {x: 1, y: 2}, direction: Direction.NORTH });
 });
 
 test.each`

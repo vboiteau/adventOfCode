@@ -8,10 +8,10 @@ const parseTick = (tick: string): TickReport => {
   return {
     numbersDef: numbersDef
       .split(' ')
-      .map(numberDef => numberDef.split('').sort().join('')),
+      .map(numberDef => numberDef.split('').sort((a, b) => a.localeCompare(b)).join('')),
     numbersToDisplay: numbersToDisplay
       .split(' ')
-      .map(numberToDisplay => numberToDisplay.split('').sort().join('')),
+      .map(numberToDisplay => numberToDisplay.split('').sort((a, b) => a.localeCompare(b)).join('')),
   };
 };
 
