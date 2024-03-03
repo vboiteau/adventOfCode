@@ -17,88 +17,136 @@ const simulateStep = (
   }
 
   for (let i = 0; i < toIncrement.length; i++) {
-    const {rowIndex, columnIndex} = toIncrement[i];
+    const { rowIndex, columnIndex } = toIncrement[i];
     if (octopuses[rowIndex][columnIndex] > 9) {
       continue;
     }
     octopuses[rowIndex][columnIndex] += 1;
     if (octopuses[rowIndex][columnIndex] > 9) {
-      if (
-        rowIndex > 0 &&
-        columnIndex > 0 &&
-        octopuses[rowIndex - 1][columnIndex - 1] < 10
-      ) {
-        toIncrement.push({
-          rowIndex: rowIndex - 1,
-          columnIndex: columnIndex - 1,
-        });
-      }
-      if (rowIndex > 0 && octopuses[rowIndex - 1][columnIndex] < 10) {
-        toIncrement.push({
-          rowIndex: rowIndex - 1,
-          columnIndex,
-        });
-      }
-      if (
-        rowIndex > 0 &&
-        columnIndex < octopuses[rowIndex].length - 1 &&
-        octopuses[rowIndex - 1][columnIndex + 1] < 10
-      ) {
-        toIncrement.push({
-          rowIndex: rowIndex - 1,
-          columnIndex: columnIndex + 1,
-        });
-      }
-      if (columnIndex > 0 && octopuses[rowIndex][columnIndex - 1] < 10) {
-        toIncrement.push({
-          rowIndex,
-          columnIndex: columnIndex - 1,
-        });
-      }
-      if (
-        columnIndex < octopuses[rowIndex].length - 1 &&
-        octopuses[rowIndex][columnIndex + 1] < 10
-      ) {
-        toIncrement.push({
-          rowIndex,
-          columnIndex: columnIndex + 1,
-        });
-      }
-      if (
-        rowIndex < octopuses.length - 1 &&
-        columnIndex > 0 &&
-        octopuses[rowIndex + 1][columnIndex - 1] < 10
-      ) {
-        toIncrement.push({
-          rowIndex: rowIndex + 1,
-          columnIndex: columnIndex - 1,
-        });
-      }
-      if (
-        rowIndex < octopuses.length - 1 &&
-        octopuses[rowIndex + 1][columnIndex] < 10
-      ) {
-        toIncrement.push({
-          rowIndex: rowIndex + 1,
-          columnIndex,
-        });
-      }
-      if (
-        rowIndex < octopuses.length - 1 &&
-        columnIndex < octopuses[rowIndex].length - 1 &&
-        octopuses[rowIndex + 1][columnIndex + 1] < 10
-      ) {
-        toIncrement.push({
-          rowIndex: rowIndex + 1,
-          columnIndex: columnIndex + 1,
-        });
-      }
+      generateNewSteps({
+        rowIndex,
+        columnIndex,
+        octopuses,
+        toIncrement,
+      });
     }
   }
   return octopuses.map(octopusRow =>
     octopusRow.map(octopus => (octopus >= 10 ? 0 : octopus))
   );
 };
+
+interface GenerateNewStepsParams {
+  rowIndex: number;
+  columnIndex: number;
+  octopuses: Array<Array<number>>;
+  toIncrement: Array<{ rowIndex: number; columnIndex: number; }>;
+}
+
+const generateNewSteps = (params: GenerateNewStepsParams): void => {
+  generateTopLeftStep(params);
+  generateTopStep(params);
+  generateTopRightStep(params);
+  generateLeftStep(params);
+  generateRightStep(params);
+  generateBottomLeftStep(params);
+  generateBottomStep(params);
+  generateBottomRightStep(params);
+}
+
+const generateTopLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (
+    rowIndex > 0 &&
+    columnIndex > 0 &&
+    octopuses[rowIndex - 1][columnIndex - 1] < 10
+  ) {
+    toIncrement.push({
+      rowIndex: rowIndex - 1,
+      columnIndex: columnIndex - 1,
+    });
+  }
+}
+
+const generateTopStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (rowIndex > 0 && octopuses[rowIndex - 1][columnIndex] < 10) {
+    toIncrement.push({
+      rowIndex: rowIndex - 1,
+      columnIndex,
+    });
+  }
+};
+
+const generateTopRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (
+    rowIndex > 0 &&
+    columnIndex < octopuses[rowIndex].length - 1 &&
+    octopuses[rowIndex - 1][columnIndex + 1] < 10
+  ) {
+    toIncrement.push({
+      rowIndex: rowIndex - 1,
+      columnIndex: columnIndex + 1,
+    });
+  }
+}
+
+const generateLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (columnIndex > 0 && octopuses[rowIndex][columnIndex - 1] < 10) {
+    toIncrement.push({
+      rowIndex,
+      columnIndex: columnIndex - 1,
+    });
+  }
+}
+
+const generateRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (
+    columnIndex < octopuses[rowIndex].length - 1 &&
+    octopuses[rowIndex][columnIndex + 1] < 10
+  ) {
+    toIncrement.push({
+      rowIndex,
+      columnIndex: columnIndex + 1,
+    });
+  }
+}
+
+const generateBottomLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (
+    rowIndex < octopuses.length - 1 &&
+    columnIndex > 0 &&
+    octopuses[rowIndex + 1][columnIndex - 1] < 10
+  ) {
+    toIncrement.push({
+      rowIndex: rowIndex + 1,
+      columnIndex: columnIndex - 1,
+    });
+  }
+}
+
+const generateBottomStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (
+    rowIndex < octopuses.length - 1 &&
+    octopuses[rowIndex + 1][columnIndex] < 10
+  ) {
+    toIncrement.push({
+      rowIndex: rowIndex + 1,
+      columnIndex,
+    });
+  }
+}
+
+const generateBottomRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+  if (
+    rowIndex < octopuses.length - 1 &&
+    columnIndex < octopuses[rowIndex].length - 1 &&
+    octopuses[rowIndex + 1][columnIndex + 1] < 10
+  ) {
+    toIncrement.push({
+      rowIndex: rowIndex + 1,
+      columnIndex: columnIndex + 1,
+    });
+  }
+}
 
 export const countFlashes = (
   octopusRows: Array<string>,

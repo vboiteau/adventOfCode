@@ -52,30 +52,17 @@ function getBoardStates([
   let completionPosition = 0;
 
   for (const drawnedNumber of drawnedNumbers) {
-    if (boardStates.every(({completed}) => completed)) {
+    if (boardStates.every(({ completed }) => completed)) {
       break;
     }
     boards.forEach((board, boardIndex) => {
       if (!boardStates[boardIndex].completed) {
-        board.forEach(line => {
-          line.forEach((lineColumn, columnIndex) => {
-            if (lineColumn.value === drawnedNumber) {
-              lineColumn.marked = true;
-              const column = board.map(row => row[columnIndex]);
-              if (
-                column.every(({marked}) => marked) ||
-                line.every(({marked}) => marked)
-              ) {
-                boardStates[boardIndex] = {
-                  completionPosition,
-                  completedWithNumber: drawnedNumber,
-                  completed: true,
-                  board,
-                };
-                completionPosition++;
-              }
-            }
-          });
+        completionPosition = processBoardLineForDrawnNumber({
+          drawnedNumber,
+          board,
+          completionPosition,
+          boardIndex,
+          boardStates,
         });
       }
     });
@@ -83,10 +70,43 @@ function getBoardStates([
   return boardStates;
 }
 
+const processBoardLineForDrawnNumber = ({
+  drawnedNumber,
+  board,
+  completionPosition,
+  boardIndex,
+  boardStates,
+}: {
+  drawnedNumber: number;
+  board: Board;
+  completionPosition: number;
+  boardIndex: number;
+  boardStates: Array<BoardState>;
+}): number => board.reduce((current, line) => 
+  line.reduce((currentLine, lineColumn, columnIndex) => {
+    if (lineColumn.value === drawnedNumber) {
+      lineColumn.marked = true;
+      const column = board.map(row => row[columnIndex]);
+      if (
+        column.every(({ marked }) => marked) ||
+        line.every(({ marked }) => marked)
+      ) {
+        boardStates[boardIndex] = {
+          completionPosition: currentLine,
+          completedWithNumber: drawnedNumber,
+          completed: true,
+          board,
+        };
+        return currentLine + 1;
+      }
+    }
+    return currentLine;
+  }, current), completionPosition);
+
 const getBoardLineScore = (boardLine: BoardRow): number =>
   boardLine
-    .filter(({marked}) => !marked)
-    .reduce((lineSum, {value}) => lineSum + value, 0);
+    .filter(({ marked }) => !marked)
+    .reduce((lineSum, { value }) => lineSum + value, 0);
 
 const getBoardScore = (board: Board): number =>
   board.reduce(
@@ -94,7 +114,7 @@ const getBoardScore = (board: Board): number =>
     0
   );
 
-const getBoardStateScore = ({board, completedWithNumber}: BoardState): number =>
+const getBoardStateScore = ({ board, completedWithNumber }: BoardState): number =>
   getBoardScore(board) * completedWithNumber;
 
 export const getWinningScore = (lines: Array<string>): number => {
