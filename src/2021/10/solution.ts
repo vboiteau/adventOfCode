@@ -1,18 +1,18 @@
-const legalMapping: {[key: string]: string} = {
+const legalMapping: { [key: string]: string } = {
   '(': ')',
   '[': ']',
   '{': '}',
   '<': '>',
 };
 
-const corruptionPoint: {[key: string]: number} = {
+const corruptionPoint: { [key: string]: number } = {
   ')': 3,
   ']': 57,
   '}': 1197,
   '>': 25137,
 };
 
-const completionPoint: {[key: string]: number} = {
+const completionPoint: { [key: string]: number } = {
   ')': 1,
   ']': 2,
   '}': 3,
@@ -47,22 +47,22 @@ const getLineState = (input: string): LineState =>
         lineState.firstCorruption = character;
         return lineState;
       },
-      {endState: [], firstCorruption: ''}
+      { endState: [], firstCorruption: '' }
     );
 
 export const getCorruptionPoints = (input: Array<string>): number => {
   const lineStates = input.map(getLineState);
   const corruptions = lineStates
-    .filter(({firstCorruption}) => Boolean(firstCorruption))
+    .filter(({ firstCorruption }) => Boolean(firstCorruption))
     .reduce(
-      (current, {firstCorruption}) => {
+      (current, { firstCorruption }) => {
         if (!current[firstCorruption]) {
           current[firstCorruption] = 0;
         }
         current[firstCorruption] += 1;
         return current;
       },
-      {} as {[key: string]: number}
+      {} as { [key: string]: number }
     );
   return Object.entries(corruptions).reduce(
     (sum, [character, occurence]) =>
@@ -80,10 +80,10 @@ const getAutoCompletionPoint = (autoComplete: Array<string>): number =>
 export const getCompletionPoints = (input: Array<string>): number => {
   const lineStates = input.map(getLineState);
   const autoCompletion = lineStates
-    .filter(({firstCorruption}) => !firstCorruption)
-    .map(({endState}) =>
+    .filter(({ firstCorruption }) => !firstCorruption)
+    .map(({ endState }) =>
       getAutoCompletionPoint(
-        endState.reverse().map(character => legalMapping[character])
+        endState.toReversed().map(character => legalMapping[character])
       )
     )
     .sort((a, b) => a - b);

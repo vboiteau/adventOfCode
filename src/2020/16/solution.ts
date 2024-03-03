@@ -126,9 +126,8 @@ function parseTicketNotes(serializedTicketNotes: string): TicketNotes {
 
 function parseFieldRanges(fields: string): FieldRanges {
   return fields.split('\n').reduce((ranges: FieldRanges, field: string) => {
-    const {fieldName, max1, max2, min1, min2} = field.match(
-      /^(?<fieldName>[\w\s]+):\s(?<min1>\d+)-(?<max1>\d+)\sor\s(?<min2>\d+)-(?<max2>\d+)/
-    ).groups;
+    const {fieldName, max1, max2, min1, min2} = 
+      /^(?<fieldName>[\w\s]+):\s(?<min1>\d+)-(?<max1>\d+)\sor\s(?<min2>\d+)-(?<max2>\d+)/.exec(field).groups;
     return {
       ...ranges,
       [fieldName]: [

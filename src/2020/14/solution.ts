@@ -37,9 +37,8 @@ function parseInstructions(
       });
     }
     if (line.startsWith('mem')) {
-      const {address, value} = line.match(
-        /^mem\[(?<address>\d+)\]\s=\s(?<value>\d+)$/
-      ).groups;
+      const {address, value} = 
+        /^mem\[(?<address>\d+)\]\s=\s(?<value>\d+)$/.exec(line).groups;
       parsed[parsed.length - 1].instructions.push({
         address: parseInt(address),
         value: parseInt(value),
@@ -130,5 +129,5 @@ function explodeMaskedAddress(maskedAddress) {
 
 function getBitValue(value: number): string {
   const padded = '0'.repeat(36) + Number(value).toString(2);
-  return padded.substr(padded.length - 36);
+  return padded.substring(padded.length - 36);
 }

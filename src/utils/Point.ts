@@ -21,8 +21,8 @@ export function jump(point: Point, direction: Direction, jumpSize: number = 1) {
             return { x: point.x + jumpSize, y: point.y };
         case Direction.SOUTH:
             return { x: point.x, y: point.y + jumpSize };
-        default:
         case Direction.WEST:
+        default:
             return { x: point.x - jumpSize, y: point.y };
     }
 }

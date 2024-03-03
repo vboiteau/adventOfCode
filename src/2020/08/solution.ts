@@ -75,9 +75,8 @@ function getInstructionsFromFileLines(
   fileLines: Array<string>
 ): Array<Instruction> {
   return fileLines.map((fileLine: string) => {
-    const {type, value} = fileLine.match(
-      /^(?<type>acc|nop|jmp)\s(?<value>[+-]\d+)$/
-    ).groups;
+    const {type, value} = 
+      /^(?<type>acc|nop|jmp)\s(?<value>[+-]\d+)$/.exec(fileLine).groups;
     return {
       type,
       value: parseInt(value),

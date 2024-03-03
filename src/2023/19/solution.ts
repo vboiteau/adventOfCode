@@ -126,7 +126,7 @@ export const getProcessMap = (processes: Array<Process>): Record<string, Array<P
 
 export const isPartApproved = (part: PartDescription, processes: Record<string, Array<ProcessStep>>): boolean => {
     let nextState = { part, processId: 'in', stepIndex: 0 };
-    let count =  0;
+    let count = 0;
     while (count < 1_000_000_000) {
         const process = processes[nextState.processId];
         const step = process[nextState.stepIndex];
@@ -139,26 +139,33 @@ export const isPartApproved = (part: PartDescription, processes: Record<string, 
         if (isPointer(step)) {
             nextState = { ...nextState, processId: step.to, stepIndex: 0 };
         } else if (isCondition(step)) {
-            const value = nextState.part[step.category];
-            if ((step.comparison === 'eq' && value === step.value) ||
-                (step.comparison === 'gt' && value > step.value) ||
-                (step.comparison === 'lt' && value < step.value)
-            ) {
-                if (isApproved(step.ifTrue)) {
-                    return true;
-                }
-                if (isRejected(step.ifTrue)) {
-                    return false;
-                }
-                if (isPointer(step.ifTrue)) {
-                    nextState = { ...nextState, processId: step.ifTrue.to, stepIndex: 0 };
-                } 
-            } else {
-                nextState = { ...nextState, stepIndex: nextState.stepIndex + 1 };
+            const isApproved = isCondtionApproved(nextState, step);
+            if (typeof isApproved === 'boolean') {
+                return isApproved;
             }
+            nextState = isApproved;
         }
         count++;
     }
+}
+
+export const isCondtionApproved = (nextState: PartState, step: Condition): boolean | PartState => {
+    const value = nextState.part[step.category];
+    if ((step.comparison === 'eq' && value === step.value) ||
+        (step.comparison === 'gt' && value > step.value) ||
+        (step.comparison === 'lt' && value < step.value)
+    ) {
+        if (isApproved(step.ifTrue)) {
+            return true;
+        }
+        if (isRejected(step.ifTrue)) {
+            return false;
+        }
+        if (isPointer(step.ifTrue)) {
+            return { ...nextState, processId: step.ifTrue.to, stepIndex: 0 };
+        }
+    }
+    return { ...nextState, stepIndex: nextState.stepIndex + 1 };
 }
 
 export const getApprovedSum = (input: Array<string>): number => {

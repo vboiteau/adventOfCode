@@ -46,30 +46,47 @@ function getHandTypeWithJoker(groupedCards: Record<string, number>): ResultType 
         case 1:
             return 'Five of a Kind';
         case 2:
-            if (hasJoker) {
-                return 'Five of a Kind';
-            }
-            return Math.max(...Object.values(groupedCards)) === 4 ? 'Four of a Kind' : 'Full House';
+            return getTwoGroupsHandTypeWithJoker(groupedCards, hasJoker);
         case 3:
-            if (hasJoker) {
-                if (Math.max(...Object.values(groupedCards)) === 3) {
-                    return 'Four of a Kind';
-                }
-                return groupedCards['J'] === 2 ? 'Four of a Kind' : 'Full House';
-            }
-            return Math.max(...Object.values(groupedCards)) === 3 ? 'Three of a Kind' : 'Two Pair';
+            return getThreeGroupsHandTypeWithJoker(groupedCards, hasJoker);
         case 4:
-            if (hasJoker) {
-                return 'Three of a Kind';
-            }
-            return 'Pair';
+            return getFourGroupsHandTypeWithJoker(groupedCards, hasJoker);
         default:
-            if (hasJoker) {
-                return 'Pair';
-            }
-            return 'High Card';
+            return getFiveGroupsHandTypeWithJoker(groupedCards, hasJoker);
     }
 }
+
+const getTwoGroupsHandTypeWithJoker = (groupedCards: Record<string, number>, hasJoker: boolean): ResultType => {
+    if (hasJoker) {
+        return 'Five of a Kind';
+    }
+    return Math.max(...Object.values(groupedCards)) === 4 ? 'Four of a Kind' : 'Full House';
+}
+
+const getThreeGroupsHandTypeWithJoker = (groupedCards: Record<string, number>, hasJoker: boolean): ResultType => {
+    if (hasJoker) {
+        if (Math.max(...Object.values(groupedCards)) === 3) {
+            return 'Four of a Kind';
+        }
+        return groupedCards['J'] === 2 ? 'Four of a Kind' : 'Full House';
+    }
+    return Math.max(...Object.values(groupedCards)) === 3 ? 'Three of a Kind' : 'Two Pair';
+}
+
+const getFourGroupsHandTypeWithJoker = (groupedCards: Record<string, number>, hasJoker: boolean): ResultType => {
+    if (hasJoker) {
+        return 'Three of a Kind';
+    }
+    return 'Pair';
+}
+
+const getFiveGroupsHandTypeWithJoker = (groupedCards: Record<string, number>, hasJoker: boolean): ResultType => {
+    if (hasJoker) {
+        return 'Pair';
+    }
+    return 'High Card';
+}
+
 
 function readCardHand(line: string): CardHand {
     const [handDesc, bid] = line.split(' ');

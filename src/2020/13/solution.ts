@@ -5,7 +5,7 @@ export function getProductOfBusNumberAndTimeToWait(notesFile: string): number {
     .split(',')
     .filter(bus => bus !== 'x')
     .map(bus => parseInt(bus));
-  const sortByCloseToTimeReady = buses.sort(
+  const sortByCloseToTimeReady = buses.toSorted(
     (a, b) => a - (timeReady % a) - (b - (timeReady % b))
   );
   return (

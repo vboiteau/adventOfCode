@@ -1,4 +1,4 @@
-import { getSeatId, getHighestSeatId, findMissingSeat } from './solution';
+import { getSeatId, getHighestSeatId } from './solution';
 import { resolve, join } from 'path';
 import { getFileLines } from '../../fileReader';
 

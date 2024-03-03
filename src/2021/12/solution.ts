@@ -9,16 +9,16 @@ const bigCaveRegex = /[A-Z]+/;
 const noDoubleSmallCaveVisit = (path: Array<Cave>): boolean =>
   Object.values(
     path
-      .filter(({isBigCave}) => !isBigCave)
+      .filter(({ isBigCave }) => !isBigCave)
       .reduce(
-        (visits, {label}) => {
+        (visits, { label }) => {
           if (!visits[label]) {
             visits[label] = 0;
           }
           visits[label] += 1;
           return visits;
         },
-        {} as {[key: string]: number}
+        {} as { [key: string]: number }
       )
   ).every(value => value === 1);
 
@@ -30,21 +30,16 @@ const findPaths = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
     }
     for (let j = 0; j < path[path.length - 1].links.length; j++) {
       const cave = path[path.length - 1].links[j];
-      if (cave.isBigCave) {
-        paths.push([...path, cave]);
-      } else if (
+      if (cave.isBigCave || (
         !cave.isBigCave &&
-        !path.find(({label}) => label === cave.label)
-      ) {
+        !path.find(({ label }) => label === cave.label)
+      )) {
         paths.push([...path, cave]);
       }
     }
   }
   return paths.filter(path => path[path.length - 1].label === 'end');
 };
-
-const serializePath = (path: Array<Cave>): string =>
-  path.map(({label}) => label).join(',');
 
 const findPathsWithDouble = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
   for (let i = 0; i < paths.length; i++) {
@@ -54,18 +49,15 @@ const findPathsWithDouble = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
     }
     for (let j = 0; j < path[path.length - 1].links.length; j++) {
       const cave = path[path.length - 1].links[j];
-      if (cave.isBigCave) {
-        paths.push([...path, cave]);
-      } else if (
-        !cave.isBigCave &&
-        !path.find(({label}) => label === cave.label)
-      ) {
-        paths.push([...path, cave]);
-      } else if (
-        !cave.isBigCave &&
-        noDoubleSmallCaveVisit(path) &&
-        cave.label !== 'start'
-      ) {
+      if (cave.isBigCave ||
+        (
+          !cave.isBigCave &&
+          !path.find(({ label }) => label === cave.label)
+        ) || (
+          !cave.isBigCave &&
+          noDoubleSmallCaveVisit(path) &&
+          cave.label !== 'start'
+        )) {
         paths.push([...path, cave]);
       }
     }
@@ -77,22 +69,22 @@ const getCaves = (caveSystem: Array<string>): Array<Cave> => {
   const caves: Array<Cave> = [];
   caveSystem.forEach(caveLink => {
     const [caveALabel, caveBLabel] = caveLink.split('-');
-    if (!caves.find(({label}) => label === caveALabel)) {
+    if (!caves.find(({ label }) => label === caveALabel)) {
       caves.push({
         label: caveALabel,
         isBigCave: bigCaveRegex.test(caveALabel),
         links: [],
       });
     }
-    if (!caves.find(({label}) => label === caveBLabel)) {
+    if (!caves.find(({ label }) => label === caveBLabel)) {
       caves.push({
         label: caveBLabel,
         isBigCave: bigCaveRegex.test(caveBLabel),
         links: [],
       });
     }
-    const caveA = caves.find(({label}) => label === caveALabel);
-    const caveB = caves.find(({label}) => label === caveBLabel);
+    const caveA = caves.find(({ label }) => label === caveALabel);
+    const caveB = caves.find(({ label }) => label === caveBLabel);
     if (caveA && caveB) {
       caveA.links.push(caveB);
       caveB.links.push(caveA);
@@ -103,7 +95,7 @@ const getCaves = (caveSystem: Array<string>): Array<Cave> => {
 
 export const countPaths = (caveSystem: Array<string>): number => {
   const caves = getCaves(caveSystem);
-  const paths = findPaths([[caves.find(({label}) => label === 'start')]]);
+  const paths = findPaths([[caves.find(({ label }) => label === 'start')]]);
   return paths.length;
 };
 
@@ -112,7 +104,7 @@ export const countPathsWithDoubleVisits = (
 ): number => {
   const caves = getCaves(caveSystem);
   const paths = findPathsWithDouble([
-    [caves.find(({label}) => label === 'start')],
+    [caves.find(({ label }) => label === 'start')],
   ]);
   return paths.length;
 };

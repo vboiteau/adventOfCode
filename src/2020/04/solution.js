@@ -3,7 +3,7 @@ export function validatePassports(passportLines, validator) {
     .reduce(
       (passports, passportLine) => {
         if (passportLine.length) {
-          const matches = passportLine.match(/(\w*):([a-z0-9#]*)/gi);
+          const matches = passportLine.match(/(\w*):([a-z\d#]*)/gi);
           matches.forEach(match => {
             const [key, value] = match.split(':');
             passports[passports.length - 1][key] = value;
@@ -30,14 +30,14 @@ export function validatePassportValues(passport) {
     ['iyr', value => !!value && validateRange(value, 2010, 2020)],
     ['eyr', value => !!value && validateRange(value, 2020, 2030)],
     ['hgt', value => !!value && validateHeight(value)],
-    ['hcl', value => !!value && /^#[0-9a-f]{6}$/.test(value)],
+    ['hcl', value => !!value && /^#[\da-f]{6}$/.test(value)],
     [
       'ecl',
       value =>
         !!value &&
         ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(value),
     ],
-    ['pid', value => !!value && /^[0-9]{9}$/.test(value)],
+    ['pid', value => !!value && /^\d{9}$/.test(value)],
   ].map(([key, validator]) => [key, validator(passport[key])]);
   return validated.every(([key, valid]) => valid);
 }

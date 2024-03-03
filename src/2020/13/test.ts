@@ -1,21 +1,6 @@
 import {
-  getProductOfBusNumberAndTimeToWait,
   getTimestampWithSequence,
 } from './solution';
-import { resolve, join } from 'path';
-import { getFileContent, getFileLines } from '../../fileReader';
-
-// test.each`
-// file | product
-// ${'test.txt'} | ${295}
-// `(
-//   'Given a note file $file when getProductOfBusNumberAndTimeToWait is called then the returned product should be $product',
-//   async ({ file, product }) => {
-//     const filePath = resolve(join(__dirname, file));
-//     const notes: string = (await getFileContent(filePath));
-//     expect(getProductOfBusNumberAndTimeToWait(notes)).toEqual(product);
-//   }
-// );
 
 test.each`
   chain                    | product

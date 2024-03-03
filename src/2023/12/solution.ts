@@ -1,4 +1,4 @@
-let cache: Record<string, number> = {};
+const cache: Record<string, number> = {};
 
 const trimStart = (input: string): string => {
     return input.startsWith('.') ? input.split(/(?<=\.)(?=[^.])/).slice(1).join('') : input;
@@ -22,15 +22,18 @@ const getPossibilities = (input: string, targets: Array<number>): number => {
         return Number(foundGroup);
     }
 
-    let possibilities =
-        (input[0] !== '#' ? getPossibilities(trimStart(input.slice(1)), targets) : 0) +
+    const possibilities =
+        (!input[0].startsWith('#') ? getPossibilities(trimStart(input.slice(1)), targets) : 0) +
         (foundGroup && input[targets[0]] !== '#' ? getPossibilities(trimStart(input.slice(targets[0] + 1)), targets.slice(1)) : 0)
 
-    return cache[line] ??= possibilities;
+    if (!cache[line]) {
+        cache[line] = possibilities;
+    }
+    return cache[line];
 };
 
 export const solution = (input: Array<string>, repeatCount: number): number => {
-    return input.reduce((sum, line, index) => {
+    return input.reduce((sum, line) => {
         const [message, target] = line.split(' ');
         const repeatedMessage = new Array(repeatCount).fill(message.trim()).join('?');
         const repeatedTarget = new Array(repeatCount).fill(target.trim()).join(',').split(',').map(Number);

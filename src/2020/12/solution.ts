@@ -18,7 +18,7 @@ export function getLastPosition(instructionList: Array<string>): Array<number> {
   const instructions: Array<Instruction> = instructionList
     .map(
       (instruction: string) =>
-        instruction.match(/^(?<command>[A-Z])(?<value>[0-9]+)$/).groups
+        /^(?<command>[A-Z])(?<value>\d+)$/.exec(instruction).groups
     )
     .map(({command, value}) => ({
       command,
@@ -65,7 +65,7 @@ export function getLastPositionWithWaypoint(
   const instructions: Array<Instruction> = instructionList
     .map(
       (instruction: string) =>
-        instruction.match(/^(?<command>[A-Z])(?<value>[0-9]+)$/).groups
+        /^(?<command>[A-Z])(?<value>\d+)$/.exec(instruction).groups
     )
     .map(({command, value}) => ({
       command,

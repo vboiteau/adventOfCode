@@ -63,7 +63,7 @@ export function branchArrangementsWithJump(
 }
 
 function buildJoltagesList(adapters: Array<number>): Array<number> {
-  const joltages = [0, ...adapters.sort((a, b) => a - b)];
+  const joltages = [0, ...adapters.toSorted((a, b) => a - b)];
   joltages.push(joltages[joltages.length - 1] + 3);
   return joltages;
 }

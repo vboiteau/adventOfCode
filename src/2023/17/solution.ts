@@ -74,7 +74,7 @@ export const getCityLeastLavalLost = (cityMap: Array<string>, getToVisit: (Node:
     const grid = GridUtils.read(cityMap, Number);
     const distance_map: Record<string, number> = {};
     const startPoint = GridUtils.getTopLeft();
-    const states: Array<NavigationState> = [
+    let states: Array<NavigationState> = [
         {
             node: {
                 vector: {
@@ -100,7 +100,8 @@ export const getCityLeastLavalLost = (cityMap: Array<string>, getToVisit: (Node:
         distance_map[toKey(state.node)] = 0;
     }
     while (states.length) {
-        const { node, cost } = states.sort((a, b) => a.cost - b.cost).splice(0, 1)[0];
+        states = states.toSorted((a, b) => a.cost - b.cost);
+        const { node, cost } = states.splice(0, 1)[0];
         if (isEnd(node, grid)) {
             return cost;
         }

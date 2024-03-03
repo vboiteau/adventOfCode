@@ -1,4 +1,4 @@
-import { getFilePath, getFileLines } from '../../fileReader';
+import { getFileLines } from '../../fileReader';
 import { resolve, join } from 'path';
 import { countTreeEncountered, combineSlopes } from './solution';
 

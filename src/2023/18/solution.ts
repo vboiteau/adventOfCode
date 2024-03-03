@@ -17,9 +17,9 @@ const readDirection = (input: string): Direction => {
         case 'U':
         case '3':
             return Direction.NORTH;
-        default:
         case 'D':
         case '1':
+        default:
             return Direction.SOUTH;
     }
 }

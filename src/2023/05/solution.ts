@@ -1,5 +1,3 @@
-import os from 'os';
-
 interface Mapping {
     destinationStart: number;
     sourceStart: number;
@@ -29,7 +27,7 @@ const readAlmanac = (lines: string[]): Almanac => {
 
 export const solution01 = (lines: string[]) => {
     const { seeds, mappings } = readAlmanac(lines);
-    let locations = [];
+    const locations = [];
     for (const seed of seeds) {
         const result = mappings.reduce((acc, mapping) => {
             const mappingToApply = mapping.find(({ sourceStart, length }) => {
@@ -47,37 +45,46 @@ export const solution01 = (lines: string[]) => {
 
 export const solution02 = (lines: string[]) => {
     const { seeds, mappings } = readAlmanac(lines);
-    let groups: Array<Array<number>> = [];
-    for (let i = 0; i < seeds.length; i += 2) {
-        groups.push([seeds[i], seeds[i] + seeds[i + 1] - 1]);
-    }
+    let groups: Array<Array<number>> = getGroupsForSeeds(seeds);
     for (const mapping of mappings) {
-        let newGroups = [];
+        const newGroups: Array<Array<number>> = [];
         for (const { destinationStart, sourceStart, length } of mapping) {
-            let groupsFromPrevious = [...groups];
+            const groupsFromPrevious = [...groups];
             for (let groupIndex = 0; groupIndex < groupsFromPrevious.length; groupIndex++) {
                 const group = groupsFromPrevious[groupIndex];
-                if (group[0] >= sourceStart && group[1] < sourceStart + length) {
-                    groupsFromPrevious.splice(groupIndex, 1, null);
-                    newGroups.push([destinationStart + (group[0] - sourceStart), destinationStart + (group[1] - sourceStart)]);
-                } else if (group[0] <= sourceStart && group[1] >= sourceStart) {
-                    if (group[0] !== sourceStart) {
-                        groupsFromPrevious.splice(groupIndex, 1, [group[0], sourceStart - 1]);
-                    }
-                    const newGroup = [destinationStart, destinationStart + (group[1] - sourceStart)];
-                    newGroups.push(newGroup);
-                } else if (group[0] <= sourceStart + length && group[1] >= sourceStart + length) {
-                    if (group[1] !== sourceStart + length) {
-                        groupsFromPrevious.splice(groupIndex, 1, [sourceStart + length + 1, group[1]]);
-                    }
-                    const newGroup = [destinationStart + (group[0] - sourceStart), (destinationStart + length)];
-                    newGroups.push(newGroup);
-                }
+                getNewGroup(group, destinationStart, sourceStart, length, groupsFromPrevious, groupIndex, newGroups);
             }
             groups = [...groupsFromPrevious.filter(Boolean)];
         }
         groups = [...groups, ...newGroups];
     }
-    const sortedGroups = groups.sort((a, b) => a[0] - b[0]);
+    const sortedGroups = groups.toSorted((a, b) => a[0] - b[0]);
     return sortedGroups[0][0]
+}
+
+const getGroupsForSeeds = (seeds: Array<number>) => {
+    const groups: Array<Array<number>> = [];
+    for (let i = 0; i < seeds.length; i += 2) {
+        groups.push([seeds[i], seeds[i] + seeds[i + 1] - 1]);
+    }
+    return groups;
+}
+
+const getNewGroup = (group: Array<number>, destinationStart: number, sourceStart: number, length: number, groupsFromPrevious: Array<Array<number>>, groupIndex: number, newGroups: Array<Array<number>>) => {
+    if (group[0] >= sourceStart && group[1] < sourceStart + length) {
+        groupsFromPrevious.splice(groupIndex, 1, null);
+        newGroups.push([destinationStart + (group[0] - sourceStart), destinationStart + (group[1] - sourceStart)]);
+    } else if (group[0] <= sourceStart && group[1] >= sourceStart) {
+        if (group[0] !== sourceStart) {
+            groupsFromPrevious.splice(groupIndex, 1, [group[0], sourceStart - 1]);
+        }
+        const newGroup = [destinationStart, destinationStart + (group[1] - sourceStart)];
+        newGroups.push(newGroup);
+    } else if (group[0] <= sourceStart + length && group[1] >= sourceStart + length) {
+        if (group[1] !== sourceStart + length) {
+            groupsFromPrevious.splice(groupIndex, 1, [sourceStart + length + 1, group[1]]);
+        }
+        const newGroup = [destinationStart + (group[0] - sourceStart), (destinationStart + length)];
+        newGroups.push(newGroup);
+    }
 }
