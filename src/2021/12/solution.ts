@@ -23,13 +23,11 @@ const noDoubleSmallCaveVisit = (path: Array<Cave>): boolean =>
   ).every(value => value === 1);
 
 const findPaths = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
-  for (let i = 0; i < paths.length; i++) {
-    const path = paths[i];
+  for (const path of paths) {
     if (path[path.length - 1].label === 'end') {
       continue;
     }
-    for (let j = 0; j < path[path.length - 1].links.length; j++) {
-      const cave = path[path.length - 1].links[j];
+    for (const cave of path[path.length - 1].links) {
       if (cave.isBigCave || (
         !cave.isBigCave &&
         !path.find(({ label }) => label === cave.label)
@@ -42,13 +40,11 @@ const findPaths = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
 };
 
 const findPathsWithDouble = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
-  for (let i = 0; i < paths.length; i++) {
-    const path = paths[i];
+  for (const path of paths) {
     if (path[path.length - 1].label === 'end') {
       continue;
     }
-    for (let j = 0; j < path[path.length - 1].links.length; j++) {
-      const cave = path[path.length - 1].links[j];
+    for (const cave of path[path.length - 1].links) {
       if (cave.isBigCave ||
         (
           !cave.isBigCave &&

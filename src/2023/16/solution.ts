@@ -9,9 +9,9 @@ interface RaySegment {
     x: number;
     y: number;
     direction: Direction;
-};
+}
 
-const processUp = (layout: Array<String>, x: number, y: number): Array<RaySegment> => {
+const processUp = (layout: Array<string>, x: number, y: number): Array<RaySegment> => {
     switch (layout[y][x]) {
         case '-':
             return [
@@ -55,7 +55,7 @@ const processUp = (layout: Array<String>, x: number, y: number): Array<RaySegmen
     }
 }
 
-const processRight = (layout: Array<String>, x: number, y: number): Array<RaySegment> => {
+const processRight = (layout: Array<string>, x: number, y: number): Array<RaySegment> => {
     switch (layout[y][x]) {
         case '|':
             return [
@@ -99,7 +99,7 @@ const processRight = (layout: Array<String>, x: number, y: number): Array<RaySeg
     }
 }
 
-const processDown = (layout: Array<String>, x: number, y: number): Array<RaySegment> => {
+const processDown = (layout: Array<string>, x: number, y: number): Array<RaySegment> => {
     switch (layout[y][x]) {
         case '-':
             return [
@@ -143,7 +143,7 @@ const processDown = (layout: Array<String>, x: number, y: number): Array<RaySegm
     }
 }
 
-const processLeft = (layout: Array<String>, x: number, y: number): Array<RaySegment> => {
+const processLeft = (layout: Array<string>, x: number, y: number): Array<RaySegment> => {
     switch (layout[y][x]) {
         case '|':
             return [
@@ -187,7 +187,7 @@ const processLeft = (layout: Array<String>, x: number, y: number): Array<RaySegm
     }
 }
 
-const processRay = (layout: Array<String>, ray: RaySegment): Array<RaySegment> => {
+const processRay = (layout: Array<string>, ray: RaySegment): Array<RaySegment> => {
     const { x, y, direction } = ray;
     switch (direction) {
         case 'up':
@@ -208,7 +208,7 @@ const isRayInBound = (ray: RaySegment, layout: Array<string>): boolean => {
 }
 
 const isRayAlreadyVisited = (ray: RaySegment, visited: Array<RaySegment>): boolean => {
-    return !!visited.find((visitedRay) => visitedRay.x === ray.x && visitedRay.y === ray.y && visitedRay.direction === ray.direction);
+    return Boolean(visited.find((visitedRay) => visitedRay.x === ray.x && visitedRay.y === ray.y && visitedRay.direction === ray.direction));
 }
 
 export const getEnergizedCellsWithEntry = (layout: Array<string>, entryRay: RaySegment): number => {
@@ -218,7 +218,7 @@ export const getEnergizedCellsWithEntry = (layout: Array<string>, entryRay: RayS
         raysToProcess.push(...nextRays);
     }
     const visitedPoints: Array<Point> = raysToProcess.reduce((points, ray) => {
-        if (!!points.find((point) => point.x === ray.x && point.y === ray.y)) {
+        if (points.find((point) => point.x === ray.x && point.y === ray.y)) {
             return points;
         }
         return [...points, { x: ray.x, y: ray.y }];

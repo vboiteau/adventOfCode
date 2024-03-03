@@ -81,9 +81,9 @@ export function parseProcessStep(serializedProcessStep: string): ProcessStep {
     }
     const conditionRegex = /(?<category>[xmas])(?<operator>[<>=])(?<value>\d+):(?<ifTrueStep>\w+)/;
     if (conditionRegex.test(serializedProcessStep)) {
-        const matches = serializedProcessStep.match(conditionRegex);
-        const ifTrue = parseProcessStep(matches?.groups?.ifTrueStep as string);
-        const comparison = parseOperator(matches?.groups?.operator as string);
+        const matches = conditionRegex.exec(serializedProcessStep);
+        const ifTrue = parseProcessStep(matches?.groups?.ifTrueStep);
+        const comparison = parseOperator(matches?.groups?.operator);
         return {
             type: 'condition',
             category: matches?.groups?.category as PartCategory,
@@ -97,7 +97,7 @@ export function parseProcessStep(serializedProcessStep: string): ProcessStep {
 
 
 export function parsePartDescription(serializedPartDescription: string): PartDescription {
-    const matches = serializedPartDescription.match(partDescriptionRegExp);
+    const matches = partDescriptionRegExp.exec(serializedPartDescription);
     return {
         x: Number(matches?.groups?.xValue),
         m: Number(matches?.groups?.mValue),
@@ -107,7 +107,7 @@ export function parsePartDescription(serializedPartDescription: string): PartDes
 }
 
 export function parseProcess(serializedProcess: string): Process {
-    const matches = serializedProcess.match(processRegExp);
+    const matches = processRegExp.exec(serializedProcess);
     return {
         id: matches?.groups?.id,
         steps: matches?.groups?.serializedSteps.split(',').map(parseProcessStep)

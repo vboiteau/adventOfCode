@@ -52,8 +52,7 @@ const getBassinForLowPoint = (
   lowPoint: Point
 ): Array<Point> => {
   const bassinPoints: Array<Point> = [lowPoint];
-  for (let i = 0; i < bassinPoints.length; i++) {
-    const {rowIndex, columnIndex} = bassinPoints[i];
+  for (const { rowIndex, columnIndex } of bassinPoints) {
     if (
       rowIndex > 0 &&
       canAddToBassin(heightMap, columnIndex, rowIndex - 1, bassinPoints)

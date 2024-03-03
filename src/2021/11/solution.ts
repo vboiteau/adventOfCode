@@ -16,8 +16,7 @@ const simulateStep = (
     }
   }
 
-  for (let i = 0; i < toIncrement.length; i++) {
-    const { rowIndex, columnIndex } = toIncrement[i];
+  for (const { rowIndex, columnIndex } of toIncrement) {
     if (octopuses[rowIndex][columnIndex] > 9) {
       continue;
     }

@@ -18,7 +18,7 @@ const parseLines = (lines: Array<string>): Array<Line> => {
   return lines.map(line => {
     const {
       groups: {x1, y1, x2, y2},
-    } = line.match(regex) as any;
+    } = regex.exec(line);
     return {
       p1: {
         x: Number.parseInt(x1),

@@ -26,7 +26,7 @@ const findUniqueMatch = (
   readingFunction: (reportLines: Array<string>) => string,
   matchCheckIndex: number
 ): string => {
-  const toMatchStart = `${reportLines[0].substr(0, matchCheckIndex - 1)}${
+  const toMatchStart = `${reportLines[0].substring(0, matchCheckIndex - 1)}${
     readingFunction(reportLines)[matchCheckIndex - 1]
   }`;
   const matches: Array<string> = reportLines.filter(line =>

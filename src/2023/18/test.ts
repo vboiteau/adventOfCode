@@ -1,6 +1,6 @@
 import { join } from "path"
 import { getFileLines } from "../../fileReader"
-import { getDigSize, shoelace, perimeter, readInstructionPart1, readInstructionPart2 } from "./solution";
+import { getDigSize, readInstructionPart1, readInstructionPart2 } from "./solution";
 
 test.each`
 file | readInstruction | expected

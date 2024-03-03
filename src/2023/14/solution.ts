@@ -1,11 +1,11 @@
 import { EOL } from "os";
 
 const rotateClockWise = (panel: Array<string>): Array<string> => {
-    let rotatedPanel: Array<string> = [];
+    const rotatedPanel: Array<string> = [];
     for (let columnIndex = 0; columnIndex < panel[0].length; columnIndex++) {
         let newRow = '';
-        for (let rowIndex = 0; rowIndex < panel.length; rowIndex++) {
-            newRow = panel[rowIndex][columnIndex] + newRow;
+        for (const row of panel) {
+            newRow = row[columnIndex] + newRow;
         }
         rotatedPanel.push(newRow);
     }
@@ -13,7 +13,7 @@ const rotateClockWise = (panel: Array<string>): Array<string> => {
 }
 
 const getStops = (panelRow: string): Array<number> => {
-    let stops = [];
+    const stops = [];
     for (let index = 0; index < panelRow.length; index++) {
         if (panelRow[index] === '#') {
             stops.push(index);
@@ -77,7 +77,7 @@ export const getTiltedPanelLoad = (panel: Array<string>): number => {
 
 export const getLoadAfterCycles = (panel: Array<string>, cycles: number): number => {
     let rotatedPanel = [...panel];
-    let cache: Record<string, { cycleIndex: number; rotationIndex: number; }> = {};
+    const cache: Record<string, { cycleIndex: number; rotationIndex: number; }> = {};
     for (let currentCycle = 0; currentCycle < cycles; currentCycle++) {
         for (let rotationInCycle = 0; rotationInCycle < 4; rotationInCycle++) {
             const currentPanel = rotatedPanel.join(EOL);

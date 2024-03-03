@@ -4,8 +4,8 @@ const countSumdges = (firstHalf: Array<string>, secondHalf: Array<string>): numb
 const getReflexionRow = (pattern: Array<string>, expectedSmudge: number): number => {
     const halfPoint = Math.floor(pattern.length / 2);
     for (let rowIndex = 0; rowIndex < pattern.length; rowIndex++) {
-        let firstHalf: Array<string> = [];
-        let secondHalf: Array<string> = [];
+        const firstHalf: Array<string> = [];
+        const secondHalf: Array<string> = [];
         for (let i = 0; i < halfPoint; i++) {
             const firstHalfIndex = (rowIndex - i);
             const secondHalfIndex = (rowIndex + i + 1);
@@ -26,11 +26,11 @@ const getReflexionRow = (pattern: Array<string>, expectedSmudge: number): number
 }
 
 const rotatePattern = (pattern: Array<string>): Array<string> => {
-    let flippedPattern: Array<string> = [];
+    const flippedPattern: Array<string> = [];
     for (let col = 0; col < pattern[0].length; col++) {
         let line = '';
-        for (let row = 0; row < pattern.length; row++) {
-            line = line + pattern[row][col];
+        for (const row of pattern) {
+            line = line + row[col];
         }
         flippedPattern.push(line);
     }

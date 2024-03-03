@@ -1,6 +1,6 @@
 import { getFileLines } from "../../fileReader";
 import { join } from "path";
-import { copy, equals, forward, getCityLeastLavalLost, getToVisit, getToVisitPart1, getToVisitPart2, isEndPart1, isEndPart2, left, right, toKey } from './solution';
+import { copy, equals, forward, getCityLeastLavalLost, getToVisitPart1, getToVisitPart2, isEndPart1, isEndPart2, left, right, toKey } from './solution';
 import Direction from "../../utils/Direction";
 
 test.each`

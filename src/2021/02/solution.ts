@@ -6,7 +6,7 @@ function getPositions(movements: Array<string>): {x: number; y: number} {
       if (directionRegex.test(movement)) {
         const {
           groups: {direction, strength},
-        } = movement.match(directionRegex) as any;
+        } = directionRegex.exec(movement);
         if (direction === 'forward') {
           endPosition.x += Number.parseInt(strength);
         }
@@ -40,7 +40,7 @@ function getAimPositions(movements: Array<string>): {
       if (directionRegex.test(movement)) {
         const {
           groups: {direction, strength},
-        } = movement.match(directionRegex) as any;
+        } = directionRegex.exec(movement);
         if (direction === 'forward') {
           endPosition.x += Number.parseInt(strength);
           endPosition.y += Number.parseInt(strength) * endPosition.aim;
