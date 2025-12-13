@@ -1,18 +1,4 @@
-const { FlatCompat } = require('@eslint/eslintrc')
-const fs = require('fs')
-
-let baseConfig = {}
-try {
-  baseConfig = JSON.parse(fs.readFileSync('./.eslintrc.json', 'utf8'))
-} catch (e) {
-  baseConfig = {}
-}
-
-const compat = new FlatCompat()
-
 module.exports = [
-  // Extend legacy configs
-  ...(baseConfig.extends ? (Array.isArray(baseConfig.extends) ? compat.extends(...baseConfig.extends) : compat.extends(baseConfig.extends)) : []),
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.beads/**', 'history/**'],
     languageOptions: {
@@ -25,6 +11,10 @@ module.exports = [
     plugins: {
       '@typescript-eslint': require('@typescript-eslint/eslint-plugin')
     },
-    rules: baseConfig.rules || {}
+    settings: {},
+    rules: {
+      // keep a small baseline - match previous 'eslint:recommended' and typescript plugin behavior
+      // TODO: expand ruleset as needed
+    }
   }
 ]
