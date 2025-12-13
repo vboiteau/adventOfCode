@@ -2,7 +2,7 @@ module.exports = [
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.beads/**', 'history/**'],
     languageOptions: {
-      parser: require.resolve('@typescript-eslint/parser'),
+      parser: require('@typescript-eslint/parser'),
       parserOptions: {
         project: ['./tsconfig.json'],
         sourceType: 'module'
@@ -11,10 +11,9 @@ module.exports = [
     plugins: {
       '@typescript-eslint': require('@typescript-eslint/eslint-plugin')
     },
+    env: { node: true, es2022: true },
+    plugins: { 'vitest': require('vitest') },
     settings: {},
-    rules: {
-      // keep a small baseline - match previous 'eslint:recommended' and typescript plugin behavior
-      // TODO: expand ruleset as needed
-    }
+    rules: {}
   }
 ]
