@@ -1,10 +1,10 @@
 module.exports = [
+  // Base config (applies to all files)
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.beads/**', 'history/**'],
     languageOptions: {
       parser: require('@typescript-eslint/parser'),
       parserOptions: {
-        project: ['./tsconfig.json'],
         sourceType: 'module'
       },
       ecmaVersion: 2022,
@@ -21,7 +21,17 @@ module.exports = [
     plugins: {
       '@typescript-eslint': require('@typescript-eslint/eslint-plugin')
     },
-    settings: {},
     rules: {}
+  },
+  // Additional language options for TypeScript files (enable project-aware rules)
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    languageOptions: {
+      parser: require('@typescript-eslint/parser'),
+      parserOptions: {
+        project: ['./tsconfig.json'],
+        sourceType: 'module'
+      }
+    }
   }
 ]
