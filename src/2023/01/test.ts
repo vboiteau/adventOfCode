@@ -11,7 +11,7 @@ test.each`
 });
 
 test.each`
-  test_file        | expected_value
+  test_file         | expected_value
   ${'example2.txt'} | ${281}
 `('test problem2', async ({ test_file, expected_value }) => {
   const lines = await getFileLines(path.join(__dirname, test_file));

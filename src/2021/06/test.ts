@@ -10,8 +10,6 @@ test.each`
   'Given a input $filePath when calling getWinningScore function should receive $expectedResult',
   async ({ filePath, days, expectedResult }) => {
     const [fishReport] = await readInputFileAsLines(filePath);
-    expect(getNumberOfLanternFishAtNthDay(fishReport, days)).toBe(
-      expectedResult
-    );
-  }
+    expect(getNumberOfLanternFishAtNthDay(fishReport, days)).toBe(expectedResult);
+  },
 );

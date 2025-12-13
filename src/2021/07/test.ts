@@ -9,7 +9,7 @@ test.each`
   async ({ filePath, days, expectedResult }) => {
     const [crabSubmarinePositions] = await readInputFileAsLines(filePath);
     expect(getFuelCost(crabSubmarinePositions)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -20,5 +20,5 @@ test.each`
   async ({ filePath, days, expectedResult }) => {
     const [crabSubmarinePositions] = await readInputFileAsLines(filePath);
     expect(getFibonnaciFuelCost(crabSubmarinePositions)).toBe(expectedResult);
-  }
+  },
 );

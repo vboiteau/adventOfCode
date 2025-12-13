@@ -9,7 +9,7 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const heightMap = await readInputFileAsLines(filePath);
     expect(getCorruptionPoints(heightMap)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -20,5 +20,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const heightMap = await readInputFileAsLines(filePath);
     expect(getCompletionPoints(heightMap)).toBe(expectedResult);
-  }
+  },
 );

@@ -3,9 +3,7 @@ interface Octopus {
   columnIndex: number;
 }
 
-const simulateStep = (
-  octopuses: Array<Array<number>>
-): Array<Array<number>> => {
+const simulateStep = (octopuses: Array<Array<number>>): Array<Array<number>> => {
   const toIncrement: Array<Octopus> = [];
   for (let i = 0; i < octopuses.length; i++) {
     for (let j = 0; j < octopuses[i].length; j++) {
@@ -30,16 +28,14 @@ const simulateStep = (
       });
     }
   }
-  return octopuses.map(octopusRow =>
-    octopusRow.map(octopus => (octopus >= 10 ? 0 : octopus))
-  );
+  return octopuses.map(octopusRow => octopusRow.map(octopus => (octopus >= 10 ? 0 : octopus)));
 };
 
 interface GenerateNewStepsParams {
   rowIndex: number;
   columnIndex: number;
   octopuses: Array<Array<number>>;
-  toIncrement: Array<{ rowIndex: number; columnIndex: number; }>;
+  toIncrement: Array<{ rowIndex: number; columnIndex: number }>;
 }
 
 const generateNewSteps = (params: GenerateNewStepsParams): void => {
@@ -51,22 +47,28 @@ const generateNewSteps = (params: GenerateNewStepsParams): void => {
   generateBottomLeftStep(params);
   generateBottomStep(params);
   generateBottomRightStep(params);
-}
+};
 
-const generateTopLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
-  if (
-    rowIndex > 0 &&
-    columnIndex > 0 &&
-    octopuses[rowIndex - 1][columnIndex - 1] < 10
-  ) {
+const generateTopLeftStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
+  if (rowIndex > 0 && columnIndex > 0 && octopuses[rowIndex - 1][columnIndex - 1] < 10) {
     toIncrement.push({
       rowIndex: rowIndex - 1,
       columnIndex: columnIndex - 1,
     });
   }
-}
+};
 
-const generateTopStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+const generateTopStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
   if (rowIndex > 0 && octopuses[rowIndex - 1][columnIndex] < 10) {
     toIncrement.push({
       rowIndex: rowIndex - 1,
@@ -75,7 +77,12 @@ const generateTopStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: Gene
   }
 };
 
-const generateTopRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+const generateTopRightStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
   if (
     rowIndex > 0 &&
     columnIndex < octopuses[rowIndex].length - 1 &&
@@ -86,30 +93,42 @@ const generateTopRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }:
       columnIndex: columnIndex + 1,
     });
   }
-}
+};
 
-const generateLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+const generateLeftStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
   if (columnIndex > 0 && octopuses[rowIndex][columnIndex - 1] < 10) {
     toIncrement.push({
       rowIndex,
       columnIndex: columnIndex - 1,
     });
   }
-}
+};
 
-const generateRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
-  if (
-    columnIndex < octopuses[rowIndex].length - 1 &&
-    octopuses[rowIndex][columnIndex + 1] < 10
-  ) {
+const generateRightStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
+  if (columnIndex < octopuses[rowIndex].length - 1 && octopuses[rowIndex][columnIndex + 1] < 10) {
     toIncrement.push({
       rowIndex,
       columnIndex: columnIndex + 1,
     });
   }
-}
+};
 
-const generateBottomLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+const generateBottomLeftStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
   if (
     rowIndex < octopuses.length - 1 &&
     columnIndex > 0 &&
@@ -120,21 +139,28 @@ const generateBottomLeftStep = ({ rowIndex, columnIndex, octopuses, toIncrement 
       columnIndex: columnIndex - 1,
     });
   }
-}
+};
 
-const generateBottomStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
-  if (
-    rowIndex < octopuses.length - 1 &&
-    octopuses[rowIndex + 1][columnIndex] < 10
-  ) {
+const generateBottomStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
+  if (rowIndex < octopuses.length - 1 && octopuses[rowIndex + 1][columnIndex] < 10) {
     toIncrement.push({
       rowIndex: rowIndex + 1,
       columnIndex,
     });
   }
-}
+};
 
-const generateBottomRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement }: GenerateNewStepsParams) => {
+const generateBottomRightStep = ({
+  rowIndex,
+  columnIndex,
+  octopuses,
+  toIncrement,
+}: GenerateNewStepsParams) => {
   if (
     rowIndex < octopuses.length - 1 &&
     columnIndex < octopuses[rowIndex].length - 1 &&
@@ -145,26 +171,22 @@ const generateBottomRightStep = ({ rowIndex, columnIndex, octopuses, toIncrement
       columnIndex: columnIndex + 1,
     });
   }
-}
+};
 
-export const countFlashes = (
-  octopusRows: Array<string>,
-  step: number
-): number => {
+export const countFlashes = (octopusRows: Array<string>, step: number): number => {
   let octopuses: Array<Array<number>> = octopusRows.map(octopusRow =>
     octopusRow
       .split('')
       .filter(Boolean)
-      .map((octopus: string) => Number.parseInt(octopus))
+      .map((octopus: string) => Number.parseInt(octopus)),
   );
   let flashes = 0;
   for (let i = 0; i < step; i++) {
     octopuses = simulateStep(octopuses);
     flashes += octopuses.reduce(
       (mapSum, row) =>
-        mapSum +
-        row.reduce((rowSum, octopus) => rowSum + (octopus === 0 ? 1 : 0), 0),
-      0
+        mapSum + row.reduce((rowSum, octopus) => rowSum + (octopus === 0 ? 1 : 0), 0),
+      0,
     );
   }
   return flashes;
@@ -175,7 +197,7 @@ export const getStepWhenAllFlashes = (octopusRows: Array<string>): number => {
     octopusRow
       .split('')
       .filter(Boolean)
-      .map((octopus: string) => Number.parseInt(octopus))
+      .map((octopus: string) => Number.parseInt(octopus)),
   );
   let lastFlash = 0;
   let step = 0;
@@ -183,9 +205,8 @@ export const getStepWhenAllFlashes = (octopusRows: Array<string>): number => {
     octopuses = simulateStep(octopuses);
     lastFlash = octopuses.reduce(
       (mapSum, row) =>
-        mapSum +
-        row.reduce((rowSum, octopus) => rowSum + (octopus === 0 ? 1 : 0), 0),
-      0
+        mapSum + row.reduce((rowSum, octopus) => rowSum + (octopus === 0 ? 1 : 0), 0),
+      0,
     );
     step += 1;
   }

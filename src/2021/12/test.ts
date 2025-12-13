@@ -10,7 +10,7 @@ test.each`
   async ({ filePath, step, expectedResult }) => {
     const caveSystem = await readInputFileAsLines(filePath);
     expect(countPaths(caveSystem)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -22,5 +22,5 @@ test.each`
   async ({ filePath, step, expectedResult }) => {
     const caveSystem = await readInputFileAsLines(filePath);
     expect(countPathsWithDoubleVisits(caveSystem)).toBe(expectedResult);
-  }
+  },
 );

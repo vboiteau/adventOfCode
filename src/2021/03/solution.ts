@@ -1,9 +1,7 @@
 const getGamma = (reportLines: Array<string>): string =>
   reportLines
     .reduce((bitSum: Array<number>, line: string) => {
-      line
-        .split('')
-        .forEach((bit, index) => (bitSum[index] += Number.parseInt(bit, 2)));
+      line.split('').forEach((bit, index) => (bitSum[index] += Number.parseInt(bit, 2)));
       return bitSum;
     }, new Array(reportLines[0].length).fill(0))
     .map(bitSum => (bitSum >= reportLines.length / 2 ? '1' : '0'))
@@ -24,14 +22,12 @@ export const getPowerConsumption = (reportLines: Array<string>): number => {
 const findUniqueMatch = (
   reportLines: Array<string>,
   readingFunction: (reportLines: Array<string>) => string,
-  matchCheckIndex: number
+  matchCheckIndex: number,
 ): string => {
   const toMatchStart = `${reportLines[0].substring(0, matchCheckIndex - 1)}${
     readingFunction(reportLines)[matchCheckIndex - 1]
   }`;
-  const matches: Array<string> = reportLines.filter(line =>
-    line.startsWith(toMatchStart)
-  );
+  const matches: Array<string> = reportLines.filter(line => line.startsWith(toMatchStart));
   if (matches.length === 1) {
     return matches[0];
   }
@@ -41,8 +37,5 @@ const findUniqueMatch = (
 export const getLifeSupportRating = (reportLines: Array<string>): number => {
   const oxygenGeneratorRating = findUniqueMatch(reportLines, getGamma, 1);
   const co2ScrubberRating = findUniqueMatch(reportLines, getEpsilon, 1);
-  return (
-    Number.parseInt(oxygenGeneratorRating, 2) *
-    Number.parseInt(co2ScrubberRating, 2)
-  );
+  return Number.parseInt(oxygenGeneratorRating, 2) * Number.parseInt(co2ScrubberRating, 2);
 };

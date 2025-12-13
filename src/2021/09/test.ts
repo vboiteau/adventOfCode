@@ -9,7 +9,7 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const heightMap = await readInputFileAsLines(filePath);
     expect(getLowPointSum(heightMap)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -20,5 +20,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const heightMap = await readInputFileAsLines(filePath);
     expect(getBigBassinsProduct(heightMap)).toBe(expectedResult);
-  }
+  },
 );

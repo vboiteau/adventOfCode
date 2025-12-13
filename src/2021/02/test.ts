@@ -9,7 +9,7 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const movements = await readInputFileAsLines(filePath);
     expect(getPositionProduct(movements)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -20,5 +20,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const movements = await readInputFileAsLines(filePath);
     expect(getAimPositionProduct(movements)).toBe(expectedResult);
-  }
+  },
 );

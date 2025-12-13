@@ -9,7 +9,7 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const reportLines = await readInputFileAsLines(filePath);
     expect(getPowerConsumption(reportLines)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -20,5 +20,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const reportLines = await readInputFileAsLines(filePath);
     expect(getLifeSupportRating(reportLines)).toBe(expectedResult);
-  }
+  },
 );

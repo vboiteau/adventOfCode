@@ -37,17 +37,14 @@ const getLineState = (input: string): LineState =>
           lineState.endState.push(character);
           return lineState;
         }
-        if (
-          legalMapping[lineState.endState[lineState.endState.length - 1]] ===
-          character
-        ) {
+        if (legalMapping[lineState.endState[lineState.endState.length - 1]] === character) {
           lineState.endState.pop();
           return lineState;
         }
         lineState.firstCorruption = character;
         return lineState;
       },
-      { endState: [], firstCorruption: '' }
+      { endState: [], firstCorruption: '' },
     );
 
 export const getCorruptionPoints = (input: Array<string>): number => {
@@ -62,29 +59,23 @@ export const getCorruptionPoints = (input: Array<string>): number => {
         current[firstCorruption] += 1;
         return current;
       },
-      {} as { [key: string]: number }
+      {} as { [key: string]: number },
     );
   return Object.entries(corruptions).reduce(
-    (sum, [character, occurence]) =>
-      sum + corruptionPoint[character] * occurence,
-    0
+    (sum, [character, occurence]) => sum + corruptionPoint[character] * occurence,
+    0,
   );
 };
 
 const getAutoCompletionPoint = (autoComplete: Array<string>): number =>
-  autoComplete.reduce(
-    (sum, character) => sum * 5 + completionPoint[character],
-    0
-  );
+  autoComplete.reduce((sum, character) => sum * 5 + completionPoint[character], 0);
 
 export const getCompletionPoints = (input: Array<string>): number => {
   const lineStates = input.map(getLineState);
   const autoCompletion = lineStates
     .filter(({ firstCorruption }) => !firstCorruption)
     .map(({ endState }) =>
-      getAutoCompletionPoint(
-        endState.toReversed().map(character => legalMapping[character])
-      )
+      getAutoCompletionPoint(endState.toReversed().map(character => legalMapping[character])),
     )
     .sort((a, b) => a - b);
   return autoCompletion[Math.floor(autoCompletion.length / 2)];

@@ -19,18 +19,13 @@ export const getFuelCost = (crabSubmarinePositions: string): number => {
   const max = positions[positions.length - 1];
   const fuelCosts = [];
   for (let i = min; i <= max; i++) {
-    fuelCosts[i] = positions.reduce(
-      (fuelCost, position) => fuelCost + Math.abs(position - i),
-      0
-    );
+    fuelCosts[i] = positions.reduce((fuelCost, position) => fuelCost + Math.abs(position - i), 0);
   }
 
   return Math.min(...fuelCosts);
 };
 
-export const getFibonnaciFuelCost = (
-  crabSubmarinePositions: string
-): number => {
+export const getFibonnaciFuelCost = (crabSubmarinePositions: string): number => {
   const positions: Array<number> = crabSubmarinePositions
     .split(',')
     .map(position => Number.parseInt(position))
@@ -41,7 +36,7 @@ export const getFibonnaciFuelCost = (
   for (let i = min; i <= max; i++) {
     fuelCosts[i] = positions.reduce(
       (fuelCost, position) => fuelCost + fibonacci(Math.abs(position - i)),
-      0
+      0,
     );
   }
 

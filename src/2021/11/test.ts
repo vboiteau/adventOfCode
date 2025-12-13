@@ -10,7 +10,7 @@ test.each`
   async ({ filePath, step, expectedResult }) => {
     const octopusRows = await readInputFileAsLines(filePath);
     expect(countFlashes(octopusRows, step)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -21,5 +21,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const octopusRows = await readInputFileAsLines(filePath);
     expect(getStepWhenAllFlashes(octopusRows)).toBe(expectedResult);
-  }
+  },
 );

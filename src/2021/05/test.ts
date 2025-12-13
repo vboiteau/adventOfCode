@@ -1,8 +1,5 @@
 import { readInputFileAsLines } from '../fileReader';
-import {
-  getDangerousPointsCount,
-  getDangerousPointsWithDiagonalCount,
-} from './solution';
+import { getDangerousPointsCount, getDangerousPointsWithDiagonalCount } from './solution';
 
 test.each`
   filePath                      | expectedResult
@@ -12,7 +9,7 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const lines = await readInputFileAsLines(filePath);
     expect(getDangerousPointsCount(lines)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -23,5 +20,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const lines = await readInputFileAsLines(filePath);
     expect(getDangerousPointsWithDiagonalCount(lines)).toBe(expectedResult);
-  }
+  },
 );

@@ -7,10 +7,7 @@ const getInitialState = (fishReport: string): Array<number> =>
       return days;
     }, new Array(9).fill(0));
 
-export const getNumberOfLanternFishAtNthDay = (
-  fishReport: string,
-  dayCount: number
-): number => {
+export const getNumberOfLanternFishAtNthDay = (fishReport: string, dayCount: number): number => {
   let state = getInitialState(fishReport);
   for (let i = 0; i < dayCount; i++) {
     const [dup, ...rest] = state;

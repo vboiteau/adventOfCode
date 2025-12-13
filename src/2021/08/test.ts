@@ -10,7 +10,7 @@ test.each`
   async ({ filePath, days, expectedResult }) => {
     const ticks = await readInputFileAsLines(filePath);
     expect(getNumberUsingSegmentA(ticks)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -22,5 +22,5 @@ test.each`
   async ({ filePath, days, expectedResult }) => {
     const ticks = await readInputFileAsLines(filePath);
     expect(sumOfTicks(ticks)).toBe(expectedResult);
-  }
+  },
 );

@@ -9,7 +9,7 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const depths = await readInputFileAsLines(filePath);
     expect(getDepthIncreaseWindowCount(depths, 1)).toBe(expectedResult);
-  }
+  },
 );
 
 test.each`
@@ -20,5 +20,5 @@ test.each`
   async ({ filePath, expectedResult }) => {
     const depths = await readInputFileAsLines(filePath);
     expect(getDepthIncreaseWindowCount(depths, 3)).toBe(expectedResult);
-  }
+  },
 );

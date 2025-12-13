@@ -1,10 +1,7 @@
 const sum = (depths: Array<string>) =>
   depths.reduce((sum, depth) => sum + Number.parseInt(depth), 0);
 
-export const getDepthIncreaseWindowCount = (
-  depths: Array<string>,
-  windowSize: number
-): number =>
+export const getDepthIncreaseWindowCount = (depths: Array<string>, windowSize: number): number =>
   depths.reduce((increaseCount: number, _: string, index: number) => {
     if (
       index === 0 ||

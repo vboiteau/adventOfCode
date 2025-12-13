@@ -18,8 +18,8 @@ const noDoubleSmallCaveVisit = (path: Array<Cave>): boolean =>
           visits[label] += 1;
           return visits;
         },
-        {} as { [key: string]: number }
-      )
+        {} as { [key: string]: number },
+      ),
   ).every(value => value === 1);
 
 const findPaths = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
@@ -28,10 +28,7 @@ const findPaths = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
       continue;
     }
     for (const cave of path[path.length - 1].links) {
-      if (cave.isBigCave || (
-        !cave.isBigCave &&
-        !path.find(({ label }) => label === cave.label)
-      )) {
+      if (cave.isBigCave || (!cave.isBigCave && !path.find(({ label }) => label === cave.label))) {
         paths.push([...path, cave]);
       }
     }
@@ -45,15 +42,11 @@ const findPathsWithDouble = (paths: Array<Array<Cave>>): Array<Array<Cave>> => {
       continue;
     }
     for (const cave of path[path.length - 1].links) {
-      if (cave.isBigCave ||
-        (
-          !cave.isBigCave &&
-          !path.find(({ label }) => label === cave.label)
-        ) || (
-          !cave.isBigCave &&
-          noDoubleSmallCaveVisit(path) &&
-          cave.label !== 'start'
-        )) {
+      if (
+        cave.isBigCave ||
+        (!cave.isBigCave && !path.find(({ label }) => label === cave.label)) ||
+        (!cave.isBigCave && noDoubleSmallCaveVisit(path) && cave.label !== 'start')
+      ) {
         paths.push([...path, cave]);
       }
     }
@@ -95,12 +88,8 @@ export const countPaths = (caveSystem: Array<string>): number => {
   return paths.length;
 };
 
-export const countPathsWithDoubleVisits = (
-  caveSystem: Array<string>
-): number => {
+export const countPathsWithDoubleVisits = (caveSystem: Array<string>): number => {
   const caves = getCaves(caveSystem);
-  const paths = findPathsWithDouble([
-    [caves.find(({ label }) => label === 'start')],
-  ]);
+  const paths = findPathsWithDouble([[caves.find(({ label }) => label === 'start')]]);
   return paths.length;
 };

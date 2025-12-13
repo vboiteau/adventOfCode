@@ -1,11 +1,11 @@
 const directionRegex = /(?<direction>forward|down|up)\s(?<strength>\d+)/;
 
-function getPositions(movements: Array<string>): {x: number; y: number} {
+function getPositions(movements: Array<string>): { x: number; y: number } {
   return movements.reduce(
-    (endPosition: {x: number; y: number}, movement: string) => {
+    (endPosition: { x: number; y: number }, movement: string) => {
       if (directionRegex.test(movement)) {
         const {
-          groups: {direction, strength},
+          groups: { direction, strength },
         } = directionRegex.exec(movement);
         if (direction === 'forward') {
           endPosition.x += Number.parseInt(strength);
@@ -21,12 +21,12 @@ function getPositions(movements: Array<string>): {x: number; y: number} {
       }
       return endPosition;
     },
-    {x: 0, y: 0}
+    { x: 0, y: 0 },
   );
 }
 
 export function getPositionProduct(movements: Array<string>): number {
-  const {x, y} = getPositions(movements);
+  const { x, y } = getPositions(movements);
   return x * y;
 }
 
@@ -36,10 +36,10 @@ function getAimPositions(movements: Array<string>): {
   aim: number;
 } {
   return movements.reduce(
-    (endPosition: {x: number; y: number; aim: number}, movement: string) => {
+    (endPosition: { x: number; y: number; aim: number }, movement: string) => {
       if (directionRegex.test(movement)) {
         const {
-          groups: {direction, strength},
+          groups: { direction, strength },
         } = directionRegex.exec(movement);
         if (direction === 'forward') {
           endPosition.x += Number.parseInt(strength);
@@ -56,10 +56,10 @@ function getAimPositions(movements: Array<string>): {
       }
       return endPosition;
     },
-    {x: 0, y: 0, aim: 0}
+    { x: 0, y: 0, aim: 0 },
   );
 }
 export function getAimPositionProduct(movements: Array<string>): number {
-  const {x, y} = getAimPositions(movements);
+  const { x, y } = getAimPositions(movements);
   return x * y;
 }
