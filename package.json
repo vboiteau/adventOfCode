@@ -8,24 +8,34 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
     "@types/node": "^25.0.1",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
     "eslint": "^9.39.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.7.4",
     "typescript": "^5.9.3",
     "vitest": "^4.0.15"
   },
   "scripts": {
+    "prepare": "husky install",
     "test": "vitest --run --reporter verbose",
+    "test:watch": "vitest",
     "test:coverage": "vitest --run --coverage",
     "lint": "eslint .",
     "compile": "tsc",
-    "fix": "eslint . --fix"
+    "fix": "eslint . --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"*.js\" \"*.ts\""
   },
-  "dependencies": {
-    "@types/jest": "^30.0.0"
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }

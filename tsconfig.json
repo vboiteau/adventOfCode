@@ -6,7 +6,8 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "**/*.config.ts", "vitest.config.ts"]
 }
