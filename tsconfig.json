@@ -8,5 +8,5 @@
     "noImplicitAny": true,
     "moduleResolution": "node"
   },
-  "include": ["src/**/*.ts", "test/**/*.ts"]
+  "include": ["src/**/*.ts", "test/**/*.ts", "**/*.config.ts", "vitest.config.ts"]
 }
