@@ -5,7 +5,7 @@ module.exports = [
     languageOptions: {
       parser: require('@typescript-eslint/parser'),
       parserOptions: {
-        sourceType: 'module'
+        sourceType: 'module',
       },
       ecmaVersion: 2022,
       globals: {
@@ -15,13 +15,13 @@ module.exports = [
         it: 'readonly',
         beforeEach: 'readonly',
         afterEach: 'readonly',
-        vi: 'readonly'
-      }
+        vi: 'readonly',
+      },
     },
     plugins: {
-      '@typescript-eslint': require('@typescript-eslint/eslint-plugin')
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin'),
     },
-    rules: {}
+    rules: {},
   },
   // Additional language options for TypeScript files (enable project-aware rules)
   {
@@ -30,8 +30,11 @@ module.exports = [
       parser: require('@typescript-eslint/parser'),
       parserOptions: {
         project: ['./tsconfig.json'],
-        sourceType: 'module'
-      }
-    }
-  }
-]
+        sourceType: 'module',
+      },
+    },
+  },
+  {
+    ignores: ['**/vitest.config.*.timestamp*'],
+  },
+];

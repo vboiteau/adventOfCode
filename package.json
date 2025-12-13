@@ -8,14 +8,18 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
+    "@nx/eslint": "22.2.3",
+    "@nx/vitest": "22.2.3",
     "@types/node": "^25.0.1",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
     "eslint": "^9.39.2",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
+    "nx": "22.2.3",
     "prettier": "^3.7.4",
     "typescript": "^5.9.3",
+    "vite": "^7.0.0",
     "vitest": "^4.0.15"
   },
   "scripts": {
@@ -37,5 +41,7 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "nx": {},
+  "dependencies": {}
 }
