@@ -8,16 +8,23 @@ try {
   baseConfig = {}
 }
 
-const compat = new FlatCompat({})
+const compat = new FlatCompat()
 
 module.exports = [
-  ...compat.compatConfig(baseConfig),
+  // Extend legacy configs
+  ...(baseConfig.extends ? compat.extends(baseConfig.extends) : []),
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.beads/**', 'history/**'],
     languageOptions: {
+      parser: require.resolve('@typescript-eslint/parser'),
       parserOptions: {
-        project: ['./tsconfig.json']
+        project: ['./tsconfig.json'],
+        sourceType: 'module'
       }
-    }
+    },
+    plugins: {
+      '@typescript-eslint': require('@typescript-eslint/eslint-plugin')
+    },
+    rules: baseConfig.rules || {}
   }
 ]
