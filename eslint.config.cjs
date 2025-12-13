@@ -12,7 +12,15 @@ module.exports = [
       '@typescript-eslint': require('@typescript-eslint/eslint-plugin')
     },
     env: { node: true, es2022: true },
-    plugins: { 'vitest': require('vitest') },
+    globals: {
+      test: 'readonly',
+      expect: 'readonly',
+      describe: 'readonly',
+      it: 'readonly',
+      beforeEach: 'readonly',
+      afterEach: 'readonly',
+      vi: 'readonly'
+    },
     settings: {},
     rules: {}
   }
