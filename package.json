@@ -19,8 +19,8 @@
     "vitest": "^4.0.15"
   },
   "scripts": {
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
+    "test": "vitest --run --reporter verbose",
+    "test:coverage": "vitest --run --coverage",
     "lint": "eslint .",
     "compile": "tsc",
     "fix": "eslint . --fix"
