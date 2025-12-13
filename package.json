@@ -6,7 +6,10 @@
   "repository": "git@github.com:vboiteau/adventOfCode.git",
   "author": "Vincent Boiteau-Robert <vboiteau94@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
     "@nx/eslint": "22.2.3",
     "@nx/vitest": "22.2.3",
@@ -27,7 +30,7 @@
     "test": "vitest --run --reporter verbose",
     "test:watch": "vitest",
     "test:coverage": "vitest --run --coverage",
-    "lint": "eslint .",
+    "lint": "eslint 'src/**/*.{ts,tsx}' 'packages/**/src/**/*.{ts,tsx}' 'vitest.config.ts'",
     "compile": "tsc",
     "fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"*.js\" \"*.ts\""

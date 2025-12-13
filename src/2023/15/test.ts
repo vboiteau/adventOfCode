@@ -1,4 +1,4 @@
-import { getFileContent } from '../../fileReader';
+import { getFileContent } from '@aoc/file-reader';
 import { join } from 'path';
 import { getResult, getLensPower } from './solution';
 

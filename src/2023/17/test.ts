@@ -1,4 +1,4 @@
-import { getFileLines } from '../../fileReader';
+import { getFileLines } from '@aoc/file-reader';
 import { join } from 'path';
 import {
   copy,

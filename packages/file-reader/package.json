@@ -1,0 +1,21 @@
+{
+  "name": "@aoc/file-reader",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest --run",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.15",
+    "rimraf": "^5.0.0",
+    "@types/node": "^25.0.1"
+  }
+}

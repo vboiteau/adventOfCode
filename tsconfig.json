@@ -7,7 +7,18 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+      "@aoc/file-reader": ["packages/file-reader/src"],
+      "@aoc/file-reader/*": ["packages/file-reader/src/*"]
+    },
     "types": ["vitest/globals"]
   },
-  "include": ["src/**/*.ts", "test/**/*.ts", "**/*.config.ts", "vitest.config.ts"]
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts",
+    "packages/**/src/**/*.ts",
+    "**/*.config.ts",
+    "vitest.config.ts"
+  ]
 }

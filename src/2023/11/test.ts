@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { getFileLines } from '../../fileReader';
+import { getFileLines } from '@aoc/file-reader';
 import { solution01 } from './solution';
 
 test.each`

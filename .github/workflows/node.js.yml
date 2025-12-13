@@ -23,6 +23,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
+      - name: Build all workspace packages
+        run: npx nx run-many --target=build --all
+        env:
+          CI: true
       - run: npx nx run-many --target=lint --all
         env:
           CI: true

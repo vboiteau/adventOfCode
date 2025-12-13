@@ -31,3 +31,8 @@ sonar-project.properties
 .nx/cache
 .nx/workspace-data
 vitest.config.*.timestamp*
+packages/*/dist/
+packages/*/tsconfig.build.tsbuildinfo
+build
+
+.eslintcache

@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { getFileLinesByBlock } from '../../fileReader';
+import { getFileLinesByBlock } from '@aoc/file-reader';
 import { getReflexionSummary } from './solution';
 
 test.each`

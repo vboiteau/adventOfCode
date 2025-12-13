@@ -1,4 +1,4 @@
-import { readInputFileAsLines } from '../fileReader';
+import { readInputFileAsLines } from '@aoc/file-reader';
 import { getDangerousPointsCount, getDangerousPointsWithDiagonalCount } from './solution';
 
 test.each`

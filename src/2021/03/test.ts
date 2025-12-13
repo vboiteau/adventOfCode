@@ -1,4 +1,4 @@
-import { readInputFileAsLines } from '../fileReader';
+import { readInputFileAsLines } from '@aoc/file-reader';
 import { getPowerConsumption, getLifeSupportRating } from './solution';
 
 test.each`

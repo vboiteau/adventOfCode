@@ -1,4 +1,4 @@
-import { readInputFileAsLines } from '../fileReader';
+import { readInputFileAsLines } from '@aoc/file-reader';
 import { getLowPointSum, getBigBassinsProduct } from './solution';
 
 test.each`

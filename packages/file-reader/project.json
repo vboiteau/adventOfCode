@@ -1,0 +1,30 @@
+{
+  "name": "file-reader",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/file-reader/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npm run build"],
+        "cwd": "packages/file-reader"
+      },
+      "outputs": ["{projectRoot}/dist"]
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npm run test"],
+        "cwd": "packages/file-reader"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["npm run clean"],
+        "cwd": "packages/file-reader"
+      }
+    }
+  }
+}

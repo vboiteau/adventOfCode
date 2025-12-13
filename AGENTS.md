@@ -44,6 +44,7 @@ Contact the repo owner for further clarification.
   - ESLint config: `eslint.config.cjs`
 - Agent rules / recommendations:
   - Run `npm ci` and `npm test` after making dependency or test changes.
+  - This workspace uses Nx for task orchestration. Prefer `nx` commands when available (for example, `nx test <project>` or `nx run-many --target=test --all`). Use `npm` scripts as a fallback.
   - Do not alter husky hooks or `.husky/` files without explicit approval from the repository owner.
   - Prefer failing early: ensure lint and tests pass locally before creating commits/PRs.
   - If changing lint rules or formatting config, run `npm run format` and fix any resulting changes in a dedicated commit.

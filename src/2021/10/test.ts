@@ -1,4 +1,4 @@
-import { readInputFileAsLines } from '../fileReader';
+import { readInputFileAsLines } from '@aoc/file-reader';
 import { getCorruptionPoints, getCompletionPoints } from './solution';
 
 test.each`

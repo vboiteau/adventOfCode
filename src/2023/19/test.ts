@@ -13,7 +13,7 @@ import {
   parseProcessStep,
   parseWorkSheet,
 } from './solution';
-import { getFileLines } from '../../fileReader';
+import { getFileLines } from '@aoc/file-reader';
 
 test('Given a serialized part descriptin when parse part description is called then it should return the parsed part description.', () => {
   expect(parsePartDescription('{x=787,m=2655,a=1222,s=2876}')).toEqual({
