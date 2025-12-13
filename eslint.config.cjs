@@ -12,7 +12,7 @@ const compat = new FlatCompat()
 
 module.exports = [
   // Extend legacy configs
-  ...(baseConfig.extends ? compat.extends(baseConfig.extends) : []),
+  ...(baseConfig.extends ? (Array.isArray(baseConfig.extends) ? compat.extends(...baseConfig.extends) : compat.extends(baseConfig.extends)) : []),
   {
     ignores: ['node_modules/**', 'dist/**', 'build/**', '.beads/**', 'history/**'],
     languageOptions: {
