@@ -9,10 +9,16 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@aoc/file-reader": ["packages/file-reader/src"],
-      "@aoc/file-reader/*": ["packages/file-reader/src/*"]
+      "@aoc/file-reader": [
+        "packages/file-reader/src"
+      ],
+      "@aoc/file-reader/*": [
+        "packages/file-reader/src/*"
+      ]
     },
-    "types": ["vitest/globals"]
+    "types": [
+      "vitest/globals"
+    ]
   },
   "include": [
     "src/**/*.ts",
@@ -20,5 +26,8 @@
     "packages/**/src/**/*.ts",
     "**/*.config.ts",
     "vitest.config.ts"
+  ],
+  "exclude": [
+    "**/dist/*"
   ]
 }
