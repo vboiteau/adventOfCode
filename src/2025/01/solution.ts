@@ -29,7 +29,6 @@ export const solution02 = (lines: string[]): number => {
     } = /^(?<direction>[LR])(?<countString>\d+)$/.exec(line);
     const count = Number(countString);
     const fullTurns = Math.floor(count / 100);
-    console.log(fullTurns, count);
     zeroCount += fullTurns;
     const countRest = count % 100;
     switch (direction) {
