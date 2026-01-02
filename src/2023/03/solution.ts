@@ -49,7 +49,6 @@ const getSpottedNumbers = (lines: Array<string>): Array<NumberSpotted> => {
 export const solution01 = (lines: Array<string>): number => {
   const numbers: Array<NumberSpotted> = getSpottedNumbers(lines);
   const spotsToCheck: Array<Point> = getSpotsToCheck(lines);
-  console.log(numbers);
   const numbersInSpots = numbers.filter(({ points }) =>
     points.some(({ x, y }) => spotsToCheck.some(({ x: x2, y: y2 }) => x === x2 && y === y2)),
   );
